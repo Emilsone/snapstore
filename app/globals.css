@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;450;500;520&display=swap');
+@import "tailwindcss";
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --canvas:    #F9F8F6;
+  --surface:   #FFFFFF;
+  --overlay:   #F2F1EF;
+  --rule:      #E4E2DE;
+  --rule-mid:  #D0CEC9;
+  --ink:       #1A1916;
+  --ink-2:     #5C5A55;
+  --ink-3:     #9A9790;
+  --ink-4:     #C4C2BC;
+  --blue:      #1D4ED8;
+  --blue-bg:   #EEF3FD;
+  --green:     #166534;
+  --green-bg:  #DCFCE7;
+  --red:       #991B1B;
+  --red-bg:    #FEE2E2;
+  --amber:     #92400E;
+  --amber-bg:  #FEF3C7;
+  --r-xs:  3px;
+  --r-sm:  5px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-xl:  16px;
+  --r-full: 999px;
+}
+
+html { font-size: 15px; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'cv01','cv02','cv03','ss01';
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #DBEAFE; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule-mid); border-radius: 99px; }
+
+.serif { font-family: 'Instrument Serif', Georgia, serif; }
+
+@keyframes in    { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+@keyframes spin  { to { transform:rotate(360deg); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+@keyframes sk    {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.fade-in { animation: in .28s ease both; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--overlay) 25%, var(--surface) 50%, var(--overlay) 75%);
+  background-size: 400px 100%;
+  animation: sk 1.4s ease infinite;
+  border-radius: var(--r-xs);
+}
+
+.spin {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--rule-mid);
+  border-top-color: var(--ink-2);
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  flex-shrink: 0;
+}
+.spin-sm  { width: 12px; height: 12px; }
+.spin-inv { border-color: rgba(255,255,255,.25); border-top-color: #fff; }
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  font-size: 13px; font-weight: 500; letter-spacing: .01em;
+  padding: 0 14px; height: 34px; border-radius: var(--r-sm);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s, opacity .12s;
+  white-space: nowrap; line-height: 1; user-select: none;
+  font-family: inherit;
+}
+.btn:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+
+.btn-fill {
+  background: var(--ink); color: #fff;
+  border-color: var(--ink);
+}
+.btn-fill:hover { background: #2E2C28; }
+
+.btn-outline {
+  background: var(--surface); color: var(--ink-2);
+  border-color: var(--rule);
+}
+.btn-outline:hover { border-color: var(--rule-mid); color: var(--ink); }
+
+.btn-ghost {
+  background: transparent; color: var(--ink-3); border-color: transparent;
+}
+.btn-ghost:hover { background: var(--overlay); color: var(--ink-2); }
+
+.btn-danger {
+  background: transparent; color: var(--red); border-color: transparent;
+}
+.btn-danger:hover { background: var(--red-bg); }
+
+.btn-sm { height: 28px; padding: 0 10px; font-size: 12px; }
+.btn-lg { height: 40px; padding: 0 20px; font-size: 14px; border-radius: var(--r-md); }
+
+/* ── Form ────────────────────────────────────────────────────── */
+.field { display: flex; flex-direction: column; gap: 5px; }
+.label { font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
+.hint  { font-size: 12px; color: var(--ink-3); }
+
+.input {
+  width: 100%; height: 36px; padding: 0 11px;
+  font-family: inherit; font-size: 13.5px; color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule); border-radius: var(--r-sm);
+  transition: border-color .15s, box-shadow .15s;
+  outline: none; -webkit-appearance: none;
+}
+.input:focus     { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,78,216,.08); }
+.input::placeholder { color: var(--ink-4); }
+.input-mono { font-family: 'SF Mono','Fira Code',monospace; font-size: 12.5px; }
+
+select.input {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239A9790' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 9px center;
+  padding-right: 32px;
+}
+
+/* ── Cards & surfaces ────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+}
+
+/* ── Badges ──────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 20px; padding: 0 7px;
+  border-radius: var(--r-full);
+  font-size: 11px; font-weight: 500; letter-spacing: .02em;
+  white-space: nowrap;
+}
+.badge-green  { background: var(--green-bg);  color: var(--green); }
+.badge-stone  { background: var(--overlay);   color: var(--ink-2); }
+.badge-blue   { background: var(--blue-bg);   color: var(--blue);  }
+.badge-amber  { background: var(--amber-bg);  color: var(--amber); }
+
+/* Dot */
+.dot { display: inline-block; width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.dot-green { background: #22C55E; }
+.dot-stone { background: var(--ink-4); }
+
+/* ── Divider ─────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--rule); }
+
+/* ── Modal ───────────────────────────────────────────────────── */
+.backdrop {
+  position: fixed; inset: 0;
+  background: rgba(15,14,12,.45);
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: in .18s ease;
+}
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--rule-mid);
+  border-radius: var(--r-lg);
+  width: 100%; max-width: 440px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.12), 0 6px 16px rgba(0,0,0,.06);
+  animation: in .2s ease;
+}
+.modal-head   { padding: 20px 22px 16px; border-bottom: 1px solid var(--rule); display:flex; justify-content:space-between; align-items:center; }
+.modal-body   { padding: 20px 22px; display:flex; flex-direction:column; gap: 15px; }
+.modal-foot   { padding: 14px 22px; border-top: 1px solid var(--rule); display:flex; justify-content:flex-end; gap:8px; }
+
+/* ── Toast ───────────────────────────────────────────────────── */
+.toasts {
+  position: fixed; bottom: 18px; right: 18px;
+  display: flex; flex-direction: column; gap: 7px;
+  z-index: 999; pointer-events: none;
+}
+.toast {
+  padding: 9px 14px; border-radius: var(--r-sm);
+  font-size: 12.5px; font-weight: 500;
+  border: 1px solid;
+  pointer-events: auto;
+  animation: in .22s ease both;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  max-width: 280px; line-height: 1.4;
+}
+.toast-ok   { background: var(--surface); color: var(--green); border-color: #86EFAC; }
+.toast-err  { background: var(--surface); color: var(--red);   border-color: #FCA5A5; }
+.toast-info { background: var(--surface); color: var(--ink-2); border-color: var(--rule-mid); }
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; padding: 60px 24px; text-align: center;
+}
+.empty-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  background: var(--overlay);
+  border: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-3);
+}
+
+/* ── Utility ─────────────────────────────────────────────────── */
+.truncate { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.mono     { font-family:'SF Mono','Fira Code','Cascadia Code',monospace; }

@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+*.log
+data/
+public/screenshots/
+.env
+.env.local
+README.md
+AGENTS.md
+CLAUDE.md
