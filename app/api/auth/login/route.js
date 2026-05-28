@@ -15,7 +15,7 @@ export async function POST(req) {
     const token = signToken({ username });
 
     const res = NextResponse.json({ success: true });
-    res.cookies.set('stillio_session', token, {
+    res.cookies.set('snapstore_session', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST() {
   const res = NextResponse.json({ success: true });
-  res.cookies.set('stillio_session', '', {
+  res.cookies.set('snapstore_session', '', {
     httpOnly: true,
     maxAge: 0,
     path: '/',

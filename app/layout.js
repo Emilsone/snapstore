@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Pagewatch — Web Archive",
-  description: "Personal web screenshot archiver",
+  title: "Snapstore — Web Archive",
+  description: "Snap your pages. Store them forever. Self-hosted, no subscription.",
 };
 
 export default function RootLayout({ children }) {

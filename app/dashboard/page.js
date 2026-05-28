@@ -211,7 +211,7 @@ export default function App() {
               <Icon n="camera" size={13} style={{ color: "#fff" }}/>
             </div>
             <span className="serif" style={{ fontSize: 18, letterSpacing: "-.01em", color: "var(--ink)" }}>
-              Stillio
+              Snapstore
             </span>
           </div>
 

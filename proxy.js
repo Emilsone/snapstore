@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'stillio-dev-secret-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || 'snapstore-dev-secret-change-in-production';
 
 function base64urlDecode(str) {
   const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
@@ -36,7 +36,7 @@ export function proxy(req) {
   }
 
   // Protected routes — require session
-  const token = req.cookies.get('stillio_session')?.value;
+  const token = req.cookies.get('snapstore_session')?.value;
   const session = token ? verifyJWT(token) : null;
 
   if (!session) {

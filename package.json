@@ -1,9 +1,10 @@
 {
-  "name": "pagewatch",
-  "version": "0.1.0",
+  "name": "snapstore",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:scheduler": "node scheduler.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

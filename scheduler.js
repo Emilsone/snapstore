@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Stillio Personal — Background Scheduler
+ * Snapstore — Background Scheduler
  * Run alongside your Next.js server:
  *   node scheduler.js
  */
@@ -10,7 +10,7 @@ const path = require('path');
 const Database = require('better-sqlite3');
 const fs = require('fs');
 
-const DB_PATH = path.join(__dirname, 'data', 'stillio.db');
+const DB_PATH = path.join(__dirname, 'data', 'snapstore.db');
 const SCREENSHOTS_DIR = path.join(__dirname, 'public', 'screenshots');
 
 fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
@@ -102,4 +102,4 @@ Object.entries(CRON_MAP).forEach(([schedule, cronExpr]) => {
   console.log(`  ✓ ${schedule.padEnd(8)} ${cronExpr}`);
 });
 
-console.log('\nStillio scheduler is running. Keep this open alongside: npm start\n');
+console.log('\nSnapstore scheduler is running. Keep this running alongside: npm run dev\n');
