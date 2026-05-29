@@ -302,11 +302,11 @@ export default function LandingPage() {
           0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
         }
         .hero-grad {
-          background: linear-gradient(135deg,#f9f8f6 0%,#eef3fd 40%,#f0fdf4 70%,#fef9ee 100%);
+          background: #F9F8F6;
           background-size: 300% 300%;
           animation: gradientShift 10s ease infinite;
         }
-        .nav-link { font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:var(--r-sm);transition:all .12s; }
+        .nav-link { font-size:15.5px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:var(--r-sm);transition:all .12s; }
         .nav-link:hover { background:var(--overlay);color:var(--ink); }
         .feature-card { background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-lg);padding:28px;transition:transform .25s ease,box-shadow .25s ease; }
         .feature-card:hover { transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08); }
@@ -336,11 +336,10 @@ export default function LandingPage() {
 
           {/* Desktop nav */}
           {!isMobile && (
-            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <div style={{ display: "flex",  alignItems: "center", gap: 4 }}>
               <a href="#features" className="nav-link">Features</a>
               <a href="#how-it-works" className="nav-link">How it works</a>
               <a href="#" className="nav-link">Documentation</a>
-              <a href="#pricing" className="nav-link">Pricing</a>
               <div style={{ width: 1, height: 20, background: "var(--rule)", margin: "0 8px" }} />
               <Link href="/login" className="nav-link">Sign in</Link>
               <Link href="/login" style={{ fontSize: 14, fontWeight: 500, background: "var(--ink)", color: "#fff", padding: "7px 18px", borderRadius: "var(--r-sm)", textDecoration: "none", marginLeft: 4, transition: "background .12s" }}>
@@ -365,7 +364,7 @@ export default function LandingPage() {
           <div style={{ background: "#fff", borderTop: "1px solid var(--rule)" }}>
             <a href="#features" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Features</a>
             <a href="#how-it-works" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>How it works</a>
-            <a href="#pricing" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#how-it-works" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Documentation</a>
             <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
               <Link href="/login" style={{ display: "block", textAlign: "center", padding: "11px", borderRadius: "var(--r-sm)", border: "1px solid var(--rule)", fontSize: 15, color: "var(--ink-2)", textDecoration: "none", fontWeight: 500 }}>Sign in</Link>
               <Link href="/login" style={{ display: "block", textAlign: "center", padding: "11px", borderRadius: "var(--r-sm)", background: "var(--ink)", fontSize: 15, color: "#fff", textDecoration: "none", fontWeight: 500 }}>Get started →</Link>
@@ -591,7 +590,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
       {/* ── HOW IT WORKS ────────────────────────────────────────────── */}
       <section id="how-it-works" style={{ padding: isMobile ? "60px 20px" : "88px 28px", background: "var(--surface)", borderTop: "1px solid var(--rule)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -612,50 +610,9 @@ export default function LandingPage() {
       <section>
         <Testimonials />
       </section>
-
-
-      {/* ── PRICING ─────────────────────────────────────────────────── */}
-      <section id="pricing" style={{ padding: isMobile ? "60px 20px" : "88px 28px", background: "var(--canvas)", borderTop: "1px solid var(--rule)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <FadeUp>
-            <div style={{ textAlign: "center", marginBottom: isMobile ? 36 : 56 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-3)", letterSpacing: ".09em", textTransform: "uppercase", marginBottom: 12 }}>Pricing</p>
-              <h2 className="serif" style={{ fontSize: isMobile ? 28 : "clamp(28px, 4vw, 42px)", color: "var(--ink)", letterSpacing: "-.025em", marginBottom: 14 }}>Free. Forever.</h2>
-              <p style={{ fontSize: isMobile ? 15 : 16, color: "var(--ink-2)", maxWidth: 420, margin: "0 auto" }}>
-                Snapstore is self-hosted and open source. You run it, you own it.
-              </p>
-            </div>
-          </FadeUp>
-          <FadeUp delay={0.1}>
-            <div style={{ maxWidth: 480, margin: "0 auto", background: "var(--surface)", border: "1px solid var(--rule)", borderRadius: "var(--r-xl)", overflow: "hidden", boxShadow: "0 8px 40px rgba(0,0,0,.07)" }}>
-              <div style={{ padding: isMobile ? "28px 24px 22px" : "36px 40px 28px", textAlign: "center", borderBottom: "1px solid var(--rule)" }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-3)", letterSpacing: ".07em", textTransform: "uppercase", marginBottom: 16 }}>Self-hosted</p>
-                <p className="serif" style={{ fontSize: isMobile ? 52 : 60, color: "var(--ink)", letterSpacing: "-.04em", lineHeight: 1 }}>$0</p>
-                <p style={{ fontSize: 14, color: "var(--ink-3)", marginTop: 8 }}>No subscription. No credit card. Ever.</p>
-              </div>
-              <div style={{ padding: isMobile ? "22px 24px 28px" : "28px 40px 36px" }}>
-                {["Unlimited URLs", "Unlimited screenshots", "All capture schedules", "Full-res PNG downloads", "Password protected", "Runs on your machine", "Open source"].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 13 }}>
-                    <div style={{ width: 20, height: 20, borderRadius: "50%", background: "var(--green-bg)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>
-                    </div>
-                    <p style={{ fontSize: 14, color: "var(--ink-2)" }}>{item}</p>
-                  </div>
-                ))}
-                <Link href="/login" style={{ display: "block", textAlign: "center", marginTop: 24, background: "var(--ink)", color: "#fff", padding: "13px 24px", borderRadius: "var(--r-md)", fontSize: 15, fontWeight: 500, textDecoration: "none", transition: "background .12s" }}
-                  onMouseEnter={e => e.currentTarget.style.background = "#2E2C28"}
-                  onMouseLeave={e => e.currentTarget.style.background = "var(--ink)"}
-                >
-                  Get started for free →
-                </Link>
-              </div>
-            </div>
-          </FadeUp>
-        </div>
+      <section>
+        <FAQ />
       </section>
-
-<FAQ/>    
-
       {/* ── CTA BANNER ──────────────────────────────────────────────── */}
       <section style={{ background: "var(--ink)", padding: isMobile ? "60px 20px" : "80px 28px", textAlign: "center" }}>
         <FadeUp>
