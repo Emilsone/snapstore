@@ -4,6 +4,7 @@ import Link from "next/link";
 import SocialProof from "./components/SocialProof";
 import Testimonials from "./components/Testimonials";
 import FAQ from "./components/FAQ";
+import styles from "./LandingPage.module.css";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -34,20 +35,6 @@ function Counter({ to, suffix = "" }) {
   return <span ref={ref}>{val.toLocaleString()}{suffix}</span>;
 }
 
-function FadeUp({ children, delay = 0, style: s }) {
-  const [ref, inView] = useInView();
-  return (
-    <div ref={ref} style={{
-      opacity: inView ? 1 : 0,
-      transform: inView ? "translateY(0)" : "translateY(28px)",
-      transition: `opacity .65s ease ${delay}s, transform .65s ease ${delay}s`,
-      ...s,
-    }}>
-      {children}
-    </div>
-  );
-}
-
 function useWindowWidth() {
   const [w, setW] = useState(1200);
   useEffect(() => {
@@ -66,11 +53,25 @@ const DEMO_STEPS = [
   { label: "Browse archive", desc: "See every version of the page over time" },
 ];
 
+function FadeUp({ children, delay = 0, style: s }) {
+  const [ref, inView] = useInView();
+  return (
+    <div
+      ref={ref}
+      className={`${styles.fadeUpBox} ${inView ? styles.visible : ""}`}
+      style={{ transitionDelay: `${delay}s`, ...s }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function DemoAdd() {
   const [typed, setTyped] = useState("");
   const [named, setNamed] = useState("");
   const url = "https://myportfolio.com";
   const name = "My Portfolio";
+
   useEffect(() => {
     setTyped(""); setNamed("");
     let i = 0;
@@ -87,17 +88,18 @@ function DemoAdd() {
     }
     return () => clearInterval(t1);
   }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-        <p style={{ fontSize: 11.5, fontWeight: 500, color: "var(--ink-2)" }}>URL</p>
-        <div style={{ padding: "9px 12px", background: "var(--canvas)", border: "1.5px solid var(--blue)", borderRadius: "var(--r-sm)", fontSize: 13, fontFamily: "monospace", color: "var(--ink)", minHeight: 36, display: "flex", alignItems: "center" }}>
-          {typed}<span style={{ borderRight: "2px solid var(--blue)", marginLeft: 1, animation: "blink 1s infinite" }} />
+    <div className={`${styles.flexCol} ${styles.gap14}`}>
+      <div className={`${styles.flexCol} ${styles.gap5}`}>
+        <p className={styles.labelText}>URL</p>
+        <div className={`${styles.inputMock} ${styles.monospaceFont} ${styles.urlActive}`}>
+          {typed}<span className={styles.cursorBlink} />
         </div>
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-        <p style={{ fontSize: 11.5, fontWeight: 500, color: "var(--ink-2)" }}>Label</p>
-        <div style={{ padding: "9px 12px", background: "var(--canvas)", border: "1px solid var(--rule)", borderRadius: "var(--r-sm)", fontSize: 13, color: "var(--ink)", minHeight: 36, display: "flex", alignItems: "center" }}>
+      <div className={`${styles.flexCol} ${styles.gap5}`}>
+        <p className={styles.labelText}>Label</p>
+        <div className={styles.inputMock}>
           {named || <span style={{ color: "var(--ink-4)" }}>e.g. My Portfolio</span>}
         </div>
       </div>
@@ -108,6 +110,7 @@ function DemoAdd() {
 function DemoSchedule() {
   const [selected, setSelected] = useState(null);
   const opts = ["Every hour", "Every day", "Every week", "Every month"];
+
   useEffect(() => {
     let i = 0;
     const t = setInterval(() => {
@@ -116,22 +119,22 @@ function DemoSchedule() {
     }, 600);
     return () => clearInterval(t);
   }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      {opts.map(o => (
-        <div key={o} style={{
-          padding: "10px 14px", borderRadius: "var(--r-sm)",
-          border: `1.5px solid ${selected === o ? "var(--blue)" : "var(--rule)"}`,
-          background: selected === o ? "var(--blue-bg)" : "var(--surface)",
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          transition: "all .25s ease",
-        }}>
-          <span style={{ fontSize: 13, color: selected === o ? "var(--blue)" : "var(--ink-2)", fontWeight: selected === o ? 500 : 400 }}>{o}</span>
-          {selected === o && (
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12" /></svg>
-          )}
-        </div>
-      ))}
+    <div className={`${styles.flexCol} ${styles.gap8}`}>
+      {opts.map(o => {
+        const isSel = selected === o;
+        return (
+          <div key={o} className={`${styles.schedOption} ${isSel ? styles.selected : ""}`}>
+            <span className={`${styles.schedText} ${isSel ? styles.selected : ""}`}>{o}</span>
+            {isSel && (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2.5" strokeLinecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -139,6 +142,7 @@ function DemoSchedule() {
 function DemoCapture() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
+
   useEffect(() => {
     setProgress(0); setDone(false);
     let p = 0;
@@ -148,18 +152,19 @@ function DemoCapture() {
     }, 22);
     return () => clearInterval(t);
   }, []);
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center", paddingTop: 8 }}>
-      <div style={{ width: 64, height: 64, borderRadius: "var(--r-lg)", background: done ? "var(--green-bg)" : "var(--overlay)", border: `1.5px solid ${done ? "#86EFAC" : "var(--rule)"}`, display: "flex", alignItems: "center", justifyContent: "center", transition: "all .4s ease" }}>
+    <div className={`${styles.flexCol} ${styles.gap16} ${styles.alignCenter} ${styles.pt8}`}>
+      <div className={`${styles.statusIconWrap} ${done ? styles.done : ""}`}>
         {done
           ? <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" style={{ animation: "popIn .3s ease" }}><polyline points="20 6 9 17 4 12" /></svg>
           : <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="1.75" strokeLinecap="round" style={{ animation: "spin .8s linear infinite" }}><path d="M21 12a9 9 0 1 1-6.219-8.56" /></svg>
         }
       </div>
-      <div style={{ width: "100%", height: 6, background: "var(--overlay)", borderRadius: 99, overflow: "hidden" }}>
-        <div style={{ height: "100%", borderRadius: 99, background: done ? "#22C55E" : "var(--blue)", width: `${progress}%`, transition: "width .05s linear, background .4s ease" }} />
+      <div className={styles.progressBg}>
+        <div className={`${styles.progressBar} ${done ? styles.done : ""}`} style={{ width: `${progress}%` }} />
       </div>
-      <p style={{ fontSize: 13, color: done ? "var(--green)" : "var(--ink-2)", fontWeight: 500, transition: "color .3s" }}>
+      <p className={`${styles.statusText} ${done ? styles.done : ""}`}>
         {done ? "Screenshot saved ✓" : `Capturing… ${Math.round(progress)}%`}
       </p>
     </div>
@@ -174,21 +179,23 @@ function DemoArchive() {
     { date: "11 May 2026", bg: "#FEF9EE", accent: "#FCD34D" },
     { date: "4 May 2026", bg: "#FDF2F8", accent: "#F9A8D4" },
   ];
+
   useEffect(() => {
     setVisible(0); let i = 0;
     const t = setInterval(() => { i++; setVisible(i); if (i >= shots.length) clearInterval(t); }, 300);
     return () => clearInterval(t);
   }, []);
+
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+    <div className={`${styles.grid2} ${styles.gap8}`}>
       {shots.map((s, i) => (
-        <div key={i} style={{ borderRadius: "var(--r-sm)", overflow: "hidden", border: "1px solid var(--rule)", opacity: i < visible ? 1 : 0, transform: i < visible ? "scale(1) translateY(0)" : "scale(.94) translateY(8px)", transition: "opacity .35s ease, transform .35s ease" }}>
-          <div style={{ height: 52, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
-            <div style={{ width: 28, height: 4, background: s.accent, borderRadius: 99 }} />
-            <div style={{ width: 14, height: 4, background: s.accent, opacity: .5, borderRadius: 99 }} />
+        <div key={i} className={`${styles.archiveCard} ${i < visible ? styles.visible : ""}`}>
+          <div style={{ height: 52, background: s.bg }} className={`${styles.flexCenter} ${styles.gap5}`}>
+            <div style={{ background: s.accent }} className={styles.pillLarge} />
+            <div style={{ background: s.accent }} className={styles.pillSmall} />
           </div>
-          <div style={{ padding: "6px 8px", background: "var(--surface)" }}>
-            <p style={{ fontSize: 10.5, fontWeight: 500, color: "var(--ink)" }}>{s.date}</p>
+          <div className={styles.archiveCardFooter}>
+            <p className={styles.archiveDate}>{s.date}</p>
           </div>
         </div>
       ))}
@@ -212,50 +219,41 @@ function AnimatedDemo() {
   }, [auto, inView]);
 
   return (
-    <div ref={ref} style={{
-      display: "grid",
-      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-      gap: isMobile ? 24 : 48,
-      alignItems: "center",
-    }}>
-      {/* Steps list */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        {DEMO_STEPS.map((s, i) => (
-          <button key={i} onClick={() => { setStep(i); setAuto(false); }} style={{
-            display: "flex", alignItems: "flex-start", gap: 14,
-            padding: isMobile ? "14px 14px" : "16px 18px",
-            borderRadius: "var(--r-md)",
-            border: `1.5px solid ${step === i ? "var(--rule-mid)" : "transparent"}`,
-            background: step === i ? "var(--surface)" : "transparent",
-            cursor: "pointer", textAlign: "left",
-            transition: "all .2s ease",
-            boxShadow: step === i ? "0 2px 12px rgba(0,0,0,.06)" : "none",
-          }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", flexShrink: 0, background: step === i ? "var(--ink)" : "var(--overlay)", border: `1px solid ${step === i ? "var(--ink)" : "var(--rule)"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 600, color: step === i ? "#fff" : "var(--ink-3)", transition: "all .2s ease", marginTop: 1 }}>
-              {i + 1}
-            </div>
-            <div>
-              <p style={{ fontSize: isMobile ? 14 : 14.5, fontWeight: 500, color: step === i ? "var(--ink)" : "var(--ink-2)", marginBottom: 3, transition: "color .2s" }}>{s.label}</p>
-              <p style={{ fontSize: 13, color: "var(--ink-3)", lineHeight: 1.5 }}>{s.desc}</p>
-            </div>
-          </button>
-        ))}
+    <div ref={ref} className={`${styles.gridDemo} ${isMobile ? styles.mobile : ""}`}>
+      <div className={`${styles.flexCol} ${styles.gap6}`}>
+        {DEMO_STEPS.map((s, i) => {
+          const isActive = step === i;
+          return (
+            <button
+              key={i}
+              onClick={() => { setStep(i); setAuto(false); }}
+              className={`${styles.stepBtn} ${isActive ? styles.active : ""} ${isMobile ? styles.mobile : ""}`}
+            >
+              <div className={`${styles.stepNumber} ${isActive ? styles.active : ""}`}>
+                {i + 1}
+              </div>
+              <div>
+                <p className={`${styles.stepLabel} ${isActive ? styles.active : ""} ${isMobile ? styles.mobile : ""}`}>{s.label}</p>
+                <p className={styles.stepDesc}>{s.desc}</p>
+              </div>
+            </button>
+          );
+        })}
         {auto && inView && (
-          <div style={{ height: 2, background: "var(--rule)", borderRadius: 99, marginTop: 8, overflow: "hidden" }}>
-            <div key={step} style={{ height: "100%", background: "var(--ink)", borderRadius: 99, animation: "progress 3.2s linear forwards" }} />
+          <div className={styles.stepProgressBg}>
+            <div key={step} className={styles.stepProgressFill} />
           </div>
         )}
       </div>
 
-      {/* Preview panel */}
-      <div style={{ background: "var(--surface)", border: "1px solid var(--rule)", borderRadius: "var(--r-xl)", padding: isMobile ? "20px 16px" : "28px", minHeight: 280, boxShadow: "0 8px 32px rgba(0,0,0,.06)", display: "flex", flexDirection: "column", gap: 16 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#22C55E", animation: "pulse 1.5s ease infinite" }} />
-          <p style={{ fontSize: 11.5, fontWeight: 600, color: "var(--ink-3)", letterSpacing: ".06em", textTransform: "uppercase" }}>
+      <div className={`${styles.previewPanel} ${isMobile ? styles.mobile : ""}`}>
+        <div className={`${styles.flexCenter} ${styles.gap8} ${styles.justifyStart}`}>
+          <div className={styles.pulseIndicator} />
+          <p className={styles.previewMeta}>
             Step {step + 1} of {DEMO_STEPS.length}
           </p>
         </div>
-        <div key={step} style={{ animation: "stepIn .35s ease", flex: 1 }}>
+        <div key={step} className={styles.previewContentWrapper}>
           {DEMO_CONTENT[step]}
         </div>
       </div>
@@ -276,79 +274,42 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // close menu on resize
   useEffect(() => { if (!isMobile) setMenuOpen(false); }, [isMobile]);
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--canvas)", overflowX: "hidden" }}>
-      <style>{`
-        :root {
-          --canvas: #F9F8F6; --surface: #FFFFFF; --overlay: #F2F1EF;
-          --rule: #E4E2DE; --rule-mid: #D0CEC9;
-          --ink: #1A1916; --ink-2: #5C5A55; --ink-3: #9A9790; --ink-4: #C4C2BC;
-          --blue: #1D4ED8; --blue-bg: #EEF3FD;
-          --green: #166534; --green-bg: #DCFCE7;
-          --r-xs: 3px; --r-sm: 5px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px; --r-full: 999px;
-        }
-        .serif { font-family: 'Instrument Serif', Georgia, serif; }
-        @keyframes blink    { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes spin     { to{transform:rotate(360deg)} }
-        @keyframes popIn    { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
-        @keyframes stepIn   { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes progress { from{width:0%} to{width:100%} }
-        @keyframes pulse    { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.85)} }
-        @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes gradientShift {
-          0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}
-        }
-        .hero-grad {
-          background: #F9F8F6;
-          background-size: 300% 300%;
-          animation: gradientShift 10s ease infinite;
-        }
-        .nav-link { font-size:15.5px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:var(--r-sm);transition:all .12s; }
-        .nav-link:hover { background:var(--overlay);color:var(--ink); }
-        .feature-card { background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-lg);padding:28px;transition:transform .25s ease,box-shadow .25s ease; }
-        .feature-card:hover { transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08); }
-        .stat-card { background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-lg);padding:24px 28px;text-align:center; }
-        .mobile-menu-link { display:block;padding:14px 20px;font-size:16px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule);transition:color .15s; }
-        .mobile-menu-link:hover { color:var(--ink); }
-      `}</style>
+    <div className={styles.canvas}>
 
       {/* ── NAV ─────────────────────────────────────────────────────── */}
       <nav style={{
-        position: "sticky", top: 0, zIndex: 50,
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
         background: scrolled || menuOpen ? "rgba(255,255,255,.96)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         borderBottom: scrolled || menuOpen ? "1px solid var(--rule)" : "1px solid transparent",
         transition: "all .3s ease",
       }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px", height: 58, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          {/* Logo */}
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 20px", height: 68, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <div style={{ width: 32, height: 32, background: "var(--ink)", borderRadius: "var(--r-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.75" strokeLinecap="round">
                 <rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" />
               </svg>
             </div>
-            <span className="serif" style={{ fontSize: 20, color: "var(--ink)", letterSpacing: "-.015em" }}>Snapstore</span>
+            <span className={styles.serif} style={{ fontSize: 20, color: "var(--ink)", letterSpacing: "-.015em" }}>Snapstore</span>
           </div>
 
-          {/* Desktop nav */}
           {!isMobile && (
             <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <a href="#features" className="nav-link">Features</a>
-              <a href="#how-it-works" className="nav-link">How it works</a>
-              <a href="#" className="nav-link">Documentation</a>
+              <a href="#features" className={styles.navLink}>Features</a>
+              <a href="#how-it-works" className={styles.navLink}>How it works</a>
+              <a href="#" className={styles.navLink}>Documentation</a>
               <div style={{ width: 1, height: 20, background: "var(--rule)", margin: "0 8px" }} />
-              <Link href="/login" className="nav-link">Sign in</Link>
+              <Link href="/login" className={styles.navLink}>Sign in</Link>
               <Link href="/login" style={{ fontSize: 14, fontWeight: 500, background: "var(--ink)", color: "#fff", padding: "7px 18px", borderRadius: "var(--r-sm)", textDecoration: "none", marginLeft: 4, transition: "background .12s" }}>
                 Get started →
               </Link>
             </div>
           )}
 
-          {/* Mobile hamburger */}
           {isMobile && (
             <button onClick={() => setMenuOpen(m => !m)} style={{ background: "none", border: "none", cursor: "pointer", padding: 6, color: "var(--ink)", display: "flex", alignItems: "center" }}>
               {menuOpen
@@ -359,12 +320,11 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Mobile menu */}
         {isMobile && menuOpen && (
           <div style={{ background: "#fff", borderTop: "1px solid var(--rule)" }}>
-            <a href="#features" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Features</a>
-            <a href="#how-it-works" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>How it works</a>
-            <a href="#how-it-works" className="mobile-menu-link" onClick={() => setMenuOpen(false)}>Documentation</a>
+            <a href="#features" className={styles.mobileMenuLink} onClick={() => setMenuOpen(false)}>Features</a>
+            <a href="#how-it-works" className={styles.mobileMenuLink} onClick={() => setMenuOpen(false)}>How it works</a>
+            <a href="#how-it-works" className={styles.mobileMenuLink} onClick={() => setMenuOpen(false)}>Documentation</a>
             <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
               <Link href="/login" style={{ display: "block", textAlign: "center", padding: "11px", borderRadius: "var(--r-sm)", border: "1px solid var(--rule)", fontSize: 15, color: "var(--ink-2)", textDecoration: "none", fontWeight: 500 }}>Sign in</Link>
               <Link href="/login" style={{ display: "block", textAlign: "center", padding: "11px", borderRadius: "var(--r-sm)", background: "var(--ink)", fontSize: 15, color: "#fff", textDecoration: "none", fontWeight: 500 }}>Get started →</Link>
@@ -374,12 +334,11 @@ export default function LandingPage() {
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────────────── */}
-      <section className="hero-grad" style={{ padding: isMobile ? "64px 20px 52px" : "100px 28px 80px", textAlign: "center" }}>
+      <section className={styles.heroGrad} style={{ padding: isMobile ? "122px 20px 52px" : "158px 28px 80px", textAlign: "center" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
 
-
           {/* Headline */}
-          <h1 className="serif" style={{ fontSize: isMobile ? "clamp(36px,10vw,52px)" : "clamp(42px, 7vw, 80px)", color: "var(--ink)", lineHeight: 1.05, letterSpacing: "-.035em", maxWidth: 820, margin: "0 auto 24px", animation: "fadeUp .7s ease .1s both" }}>
+          <h1 className={styles.serif} style={{ fontSize: isMobile ? "clamp(36px,10vw,52px)" : "clamp(42px, 7vw, 80px)", color: "var(--ink)", lineHeight: 1.05, letterSpacing: "-.035em", maxWidth: 820, margin: "0 auto 24px", animation: "fadeUp .7s ease .1s both" }}>
             Watch your pages,<br />
             <span style={{ color: "var(--ink-3)" }}>Remember how they looked.</span>
           </h1>
@@ -391,16 +350,20 @@ export default function LandingPage() {
 
           {/* CTAs */}
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: isMobile ? 44 : 64, animation: "fadeUp .7s ease .3s both" }}>
-            <Link href="/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--ink)", color: "#fff", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", boxShadow: "0 4px 16px rgba(0,0,0,.15)", transition: "transform .15s, box-shadow .15s" }}
+            <Link
+              href="/login"
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--ink)", color: "#fff", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 600, textDecoration: "none", boxShadow: "0 4px 16px rgba(29,78,216,.25)", transition: "transform .15s, box-shadow .15s" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.2)"; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.15)"; }}
             >
               Start archiving free
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
-            <a href="#how-it-works" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,.8)", color: "var(--ink-2)", border: "1px solid var(--rule)", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", backdropFilter: "blur(8px)", transition: "all .15s" }}
-              onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--rule-mid)"; }}
-              onMouseLeave={e => { e.currentTarget.style.color = "var(--ink-2)"; e.currentTarget.style.borderColor = "var(--rule)"; }}
+            <a
+              href="#how-it-works"
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "var(--ink-2)", border: "1px solid var(--rule)", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", backdropFilter: "blur(8px)", transition: "all .15s" }}
+              onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--rule-mid)"; e.currentTarget.style.background = "var(--overlay)"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "var(--ink-2)"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "transparent"; }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><polygon points="10 8 16 12 10 16 10 8" /></svg>
               See how it works
@@ -409,7 +372,7 @@ export default function LandingPage() {
 
           {/* Browser mockup — hidden on small mobile */}
           {!isMobile && (
-            <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: "var(--r-xl)", overflow: "hidden", border: "1px solid var(--rule)", boxShadow: "0 40px 100px rgba(0,0,0,.1), 0 10px 30px rgba(0,0,0,.06)", animation: "fadeUp .8s ease .4s both", background: "var(--surface)" }}>
+            <div style={{ maxWidth: 900, margin: "0 auto", borderRadius: "10px", overflow: "hidden", border: "1px solid var(--rule)", boxShadow: "0 40px 100px rgba(0,0,0,.1)", animation: "fadeUp .8s ease .4s both", background: "var(--surface)" }}>
               {/* Browser bar */}
               <div style={{ background: "var(--overlay)", borderBottom: "1px solid var(--rule)", padding: "13px 18px", display: "flex", alignItems: "center", gap: 14 }}>
                 <div style={{ display: "flex", gap: 7 }}>
@@ -439,9 +402,9 @@ export default function LandingPage() {
                           <span style={{ width: 6, height: 6, borderRadius: "50%", background: item.active ? "#22C55E" : "var(--ink-4)", flexShrink: 0 }} />
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <p style={{ fontSize: 12, fontWeight: item.sel ? 500 : 400, color: "var(--ink)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.name}</p>
-                            <p style={{ fontSize: 10, color: "var(--ink-3)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.url}</p>
+                            <p style={{ fontSize: 10, color: "var(--ink-2)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.url}</p>
                           </div>
-                          <span style={{ fontSize: 10, color: "var(--ink-4)" }}>{item.shots}</span>
+                          <span style={{ fontSize: 10, color: "var(--ink-3)" }}>{item.shots}</span>
                         </div>
                       ))}
                     </div>
@@ -453,13 +416,13 @@ export default function LandingPage() {
                   <div style={{ background: "var(--surface)", borderBottom: "1px solid var(--rule)", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" }}>
-                        <p className="serif" style={{ fontSize: 14, color: "var(--ink)" }}>My Portfolio</p>
-                        <span style={{ fontSize: 10, background: "var(--green-bg)", color: "var(--green)", padding: "2px 8px", borderRadius: "var(--r-full)", fontWeight: 500 }}>Active</span>
-                        <span style={{ fontSize: 10, background: "var(--blue-bg)", color: "var(--blue)", padding: "2px 8px", borderRadius: "var(--r-full)", fontWeight: 500 }}>daily</span>
+                        <p className={styles.serif} style={{ fontSize: 14, color: "var(--ink)" }}>My Portfolio</p>
+                        <span style={{ fontSize: 10, background: "var(--green-bg)", color: "var(--green)", padding: "2px 8px", borderRadius: "99px", fontWeight: 500 }}>Active</span>
+                        <span style={{ fontSize: 10, background: "var(--blue-bg)", color: "var(--blue)", padding: "2px 8px", borderRadius: "99px", fontWeight: 500 }}>daily</span>
                       </div>
-                      <p style={{ fontSize: 11, color: "var(--ink-3)", fontFamily: "monospace" }}>myportfolio.com · 24 snapshots</p>
+                      <p style={{ fontSize: 11, color: "var(--ink-2)", fontFamily: "monospace" }}>myportfolio.com · 24 snapshots</p>
                     </div>
-                    <div style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "var(--ink)", color: "#fff", padding: "6px 12px", borderRadius: "var(--r-sm)", fontSize: 12, flexShrink: 0 }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "var(--ink)", color: "#fff", padding: "6px 12px", borderRadius: "var(--r-sm)", fontSize: 12, fontWeight: 600, flexShrink: 0 }}>
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" /></svg>
                       Capture now
                     </div>
@@ -471,7 +434,7 @@ export default function LandingPage() {
                       { date: "23 May", bg: "#FEF9EE", bar: "#FCD34D" },
                       { date: "22 May", bg: "#FDF2F8", bar: "#F9A8D4" },
                     ].slice(0, isTablet ? 3 : 4).map((s, i) => (
-                      <div key={i} style={{ background: "var(--surface)", border: "1px solid var(--rule)", borderRadius: "var(--r-md)", overflow: "hidden" }}>
+                      <div key={i} style={{ background: "var(--surface)", border: "1px solid var(--rule)", borderRadius: "var(--r-sm)", overflow: "hidden" }}>
                         <div style={{ height: isTablet ? 60 : 72, background: s.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 5 }}>
                           <div style={{ width: 36, height: 4, background: s.bar, borderRadius: 99 }} />
                           <div style={{ width: 24, height: 3, background: s.bar, opacity: .5, borderRadius: 99 }} />
@@ -479,7 +442,7 @@ export default function LandingPage() {
                         </div>
                         <div style={{ padding: "7px 9px" }}>
                           <p style={{ fontSize: 11, fontWeight: 500, color: "var(--ink)" }}>{s.date}</p>
-                          <p style={{ fontSize: 10, color: "var(--ink-3)" }}>09:00</p>
+                          <p style={{ fontSize: 10, color: "var(--ink-2)" }}>09:00</p>
                         </div>
                       </div>
                     ))}
@@ -491,7 +454,7 @@ export default function LandingPage() {
 
           {/* Mobile mockup — simplified */}
           {isMobile && (
-            <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", border: "1px solid var(--rule)", boxShadow: "0 20px 60px rgba(0,0,0,.08)", animation: "fadeUp .8s ease .4s both", background: "var(--surface)" }}>
+            <div style={{ borderRadius: "10px", overflow: "hidden", border: "1px solid var(--rule)", boxShadow: "0 20px 60px rgba(0,0,0,.08)", animation: "fadeUp .8s ease .4s both", background: "var(--surface)" }}>
               <div style={{ background: "var(--overlay)", padding: "10px 14px", display: "flex", alignItems: "center", gap: 10, borderBottom: "1px solid var(--rule)" }}>
                 <div style={{ display: "flex", gap: 5 }}>
                   {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => <div key={i} style={{ width: 9, height: 9, borderRadius: "50%", background: c }} />)}
@@ -503,10 +466,10 @@ export default function LandingPage() {
               <div style={{ padding: 14 }}>
                 <div style={{ marginBottom: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <div>
-                    <p className="serif" style={{ fontSize: 13, color: "var(--ink)", marginBottom: 2 }}>My Portfolio</p>
-                    <p style={{ fontSize: 10, color: "var(--ink-3)", fontFamily: "monospace" }}>myportfolio.com · 24 snapshots</p>
+                    <p className={styles.serif} style={{ fontSize: 13, color: "var(--ink)", marginBottom: 2 }}>My Portfolio</p>
+                    <p style={{ fontSize: 10, color: "var(--ink-2)", fontFamily: "monospace" }}>myportfolio.com · 24 snapshots</p>
                   </div>
-                  <div style={{ fontSize: 11, background: "var(--ink)", color: "#fff", padding: "5px 10px", borderRadius: 5 }}>Capture now</div>
+                  <div style={{ fontSize: 11, background: "var(--ink)", color: "#fff", fontWeight: 600, padding: "5px 10px", borderRadius: "var(--r-sm)" }}>Capture now</div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
                   {[
@@ -529,24 +492,39 @@ export default function LandingPage() {
           )}
         </div>
       </section>
-      <section>      <SocialProof />  </section>
-      {/* ── STATS ───────────────────────────────────────────────────── */}
-      <section style={{ padding: isMobile ? "48px 20px" : "72px 28px", background: "var(--surface)", borderBottom: "1px solid var(--rule)" }}>
+
+      <section><SocialProof /></section>
+
+      {/* ── FEATURES ────────────────────────────────────────────────── */}
+      <section id="features" className={`${styles.featuresSection} ${isMobile ? styles.mobile : ""}`}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 12 : 16 }}>
+          <FadeUp>
+            <div className={`${styles.sectionHeader} ${isMobile ? styles.mobile : ""}`}>
+              <p className={styles.sectionMetaTag}>Features</p>
+              <h2 className={`${styles.serif} ${styles.sectionTitle} ${isMobile ? styles.mobile : ""}`}>
+                Everything your archive needs
+              </h2>
+              <p className={`${styles.sectionDesc} ${isMobile ? styles.mobile : ""}`}>
+                Built to do one thing perfectly, keep a visual record of any webpage over time.
+              </p>
+            </div>
+          </FadeUp>
+          <div className={`${styles.featuresGrid} ${isMobile ? styles.mobile : ""}`}>
             {[
-              { n: 0, suffix: " mins", label: "Setup time", sub: "From zip to running" },
-              { n: 100, suffix: "%", label: "Self-hosted", sub: "Your data, your machine" },
-              { n: 4, suffix: "", label: "Schedules", sub: "Hourly to monthly" },
-              { n: 0, suffix: " limits", label: "No URL limits", sub: "Track as many as you want" },
-            ].map((s, i) => (
-              <FadeUp key={i} delay={i * 0.08}>
-                <div className="stat-card">
-                  <p className="serif" style={{ fontSize: isMobile ? 32 : 40, color: "var(--ink)", letterSpacing: "-.03em", lineHeight: 1, marginBottom: 6 }}>
-                    <Counter to={s.n} suffix={s.suffix} />
-                  </p>
-                  <p style={{ fontSize: 13, fontWeight: 500, color: "var(--ink)", marginBottom: 3 }}>{s.label}</p>
-                  <p style={{ fontSize: 11.5, color: "var(--ink-3)" }}>{s.sub}</p>
+              { icon: "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z M12 6v6l4 2", title: "Automatic scheduling", desc: "Set a URL once. Snapstore captures it every hour, day, week, or month, no manual work.", color: "#EEF3FD", stroke: "#1D4ED8" },
+              { icon: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15", title: "Full visual history", desc: "Every capture is stored with a timestamp. Browse your complete archive in a clean grid, forever.", color: "#F0FDF4", stroke: "#166534" },
+              { icon: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3", title: "Download any snapshot", desc: "Every screenshot is a full-res PNG. Download individual captures straight from the archive.", color: "#FEF9EE", stroke: "#92400E" },
+              { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Password protection", desc: "Your archive is private. Protected by credentials only you set, no accounts, no third parties.", color: "#FDF2F8", stroke: "#9D174D" },
+              { icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z", title: "Fully self-hosted", desc: "Runs on your machine or any server. No subscription, no data leaving your control, ever.", color: "#F5F3FF", stroke: "#6D28D9" },
+              { icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Instant captures", desc: "Don't wait for a schedule, hit Capture now and get a screenshot in seconds.", color: "#ECFDF5", stroke: "#065F46" },
+            ].map((f, i) => (
+              <FadeUp key={i} delay={isMobile ? 0 : i * 0.07}>
+                <div className={styles.featureCard}>
+                  <div style={{ background: f.color }} className={styles.iconContainer}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={f.stroke} strokeWidth="1.75" strokeLinecap="round"><path d={f.icon} /></svg>
+                  </div>
+                  <p className={styles.featureTitle}>{f.title}</p>
+                  <p className={styles.featureDesc}>{f.desc}</p>
                 </div>
               </FadeUp>
             ))}
@@ -554,52 +532,16 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── FEATURES ────────────────────────────────────────────────── */}
-      <section id="features" style={{ padding: isMobile ? "60px 20px" : "88px 28px", background: "var(--canvas)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <FadeUp>
-            <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-3)", letterSpacing: ".09em", textTransform: "uppercase", marginBottom: 12 }}>Features</p>
-              <h2 className="serif" style={{ fontSize: isMobile ? 28 : "clamp(28px, 4vw, 42px)", color: "var(--ink)", letterSpacing: "-.025em", marginBottom: 14 }}>
-                Everything your archive needs
-              </h2>
-              <p style={{ fontSize: isMobile ? 15 : 16, color: "var(--ink-2)", maxWidth: 480, margin: "0 auto" }}>
-                Built to do one thing perfectly — keep a visual record of any webpage over time.
-              </p>
-            </div>
-          </FadeUp>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))", gap: isMobile ? 14 : 20 }}>
-            {[
-              { icon: "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z M12 6v6l4 2", title: "Automatic scheduling", desc: "Set a URL once. Snapstore captures it every hour, day, week, or month — no manual work.", color: "#EEF3FD", stroke: "#1D4ED8" },
-              { icon: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15", title: "Full visual history", desc: "Every capture is stored with a timestamp. Browse your complete archive in a clean grid, forever.", color: "#F0FDF4", stroke: "#166534" },
-              { icon: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3", title: "Download any snapshot", desc: "Every screenshot is a full-res PNG. Download individual captures straight from the archive.", color: "#FEF9EE", stroke: "#92400E" },
-              { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Password protection", desc: "Your archive is private. Protected by credentials only you set — no accounts, no third parties.", color: "#FDF2F8", stroke: "#9D174D" },
-              { icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z", title: "Fully self-hosted", desc: "Runs on your machine or any server. No subscription, no data leaving your control, ever.", color: "#F5F3FF", stroke: "#6D28D9" },
-              { icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Instant captures", desc: "Don't wait for a schedule — hit Capture now and get a screenshot in seconds.", color: "#ECFDF5", stroke: "#065F46" },
-            ].map((f, i) => (
-              <FadeUp key={i} delay={isMobile ? 0 : i * 0.07}>
-                <div className="feature-card">
-                  <div style={{ width: 44, height: 44, borderRadius: "var(--r-md)", background: f.color, marginBottom: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={f.stroke} strokeWidth="1.75" strokeLinecap="round"><path d={f.icon} /></svg>
-                  </div>
-                  <p style={{ fontSize: 15, fontWeight: 500, color: "var(--ink)", marginBottom: 8 }}>{f.title}</p>
-                  <p style={{ fontSize: 13.5, color: "var(--ink-2)", lineHeight: 1.7 }}>{f.desc}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* ── HOW IT WORKS ────────────────────────────────────────────── */}
-      <section id="how-it-works" style={{ padding: isMobile ? "60px 20px" : "88px 28px", background: "var(--surface)", borderTop: "1px solid var(--rule)" }}>
+      <section id="how-it-works" className={`${styles.howItWorksSection} ${isMobile ? styles.mobile : ""}`}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <FadeUp>
-            <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 64 }}>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-3)", letterSpacing: ".09em", textTransform: "uppercase", marginBottom: 12 }}>How it works</p>
-              <h2 className="serif" style={{ fontSize: isMobile ? 28 : "clamp(28px, 4vw, 42px)", color: "var(--ink)", letterSpacing: "-.025em", marginBottom: 14 }}>
+            <div className={`${styles.howItWorksHeader} ${isMobile ? styles.mobile : ""}`}>
+              <p className={styles.sectionMetaTag}>How it works</p>
+              <h2 className={`${styles.serif} ${styles.sectionTitle} ${isMobile ? styles.mobile : ""}`}>
                 From URL to archive in minutes
               </h2>
-              <p style={{ fontSize: isMobile ? 15 : 16, color: "var(--ink-2)", maxWidth: 440, margin: "0 auto" }}>
+              <p className={`${styles.howItWorksDesc} ${isMobile ? styles.mobile : ""}`}>
                 Watch each step happen live — no video needed.
               </p>
             </div>
@@ -607,51 +549,44 @@ export default function LandingPage() {
           <AnimatedDemo />
         </div>
       </section>
-      <section>
-        <Testimonials />
-      </section>
-      <section>
-        <FAQ />
-      </section>
+
+      <section><Testimonials /></section>
+      <section><FAQ /></section>
+
       {/* ── CTA BANNER ──────────────────────────────────────────────── */}
-      <section style={{ background: "var(--ink)", padding: isMobile ? "60px 20px" : "80px 28px", textAlign: "center" }}>
+      <section className={`${styles.ctaSection} ${isMobile ? styles.mobile : ""}`}>
         <FadeUp>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,.3)", letterSpacing: ".09em", textTransform: "uppercase", marginBottom: 20 }}>Get started today</p>
-          <h2 className="serif" style={{ fontSize: isMobile ? "clamp(24px,7vw,36px)" : "clamp(28px, 5vw, 50px)", color: "#fff", letterSpacing: "-.03em", marginBottom: 18, lineHeight: 1.1 }}>
+          <p className={styles.ctaMeta}>Get started today</p>
+          <h2 className={`${styles.serif} ${styles.ctaTitle} ${isMobile ? styles.mobile : ""}`}>
             Stop losing track of<br />how your pages looked.
           </h2>
-          <p style={{ fontSize: isMobile ? 15 : 16, color: "rgba(255,255,255,.5)", maxWidth: 400, margin: "0 auto 36px", lineHeight: 1.65 }}>
+          <p className={`${styles.ctaDesc} ${isMobile ? styles.mobile : ""}`}>
             Set up Snapstore in under 5 minutes. Your first snapshot is one click away.
           </p>
-          <Link href="/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "var(--ink)", padding: isMobile ? "12px 24px" : "14px 32px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", transition: "opacity .15s" }}
-            onMouseEnter={e => e.currentTarget.style.opacity = ".88"}
-            onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-          >
+          <Link href="/login" className={`${styles.ctaButton} ${isMobile ? styles.mobile : ""}`}>
             Open dashboard →
           </Link>
         </FadeUp>
       </section>
 
       {/* ── FOOTER ──────────────────────────────────────────────────── */}
-      <footer style={{ background: "var(--surface)", borderTop: "1px solid var(--rule)", padding: isMobile ? "28px 20px" : "36px 28px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between", alignItems: isMobile ? "flex-start" : "center", gap: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <div style={{ width: 26, height: 26, background: "var(--ink)", borderRadius: "var(--r-xs)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <footer className={`${styles.footerMain} ${isMobile ? styles.mobile : ""}`}>
+        <div className={`${styles.footerContainer} ${isMobile ? styles.mobile : ""}`}>
+          <div className={styles.footerLogoWrap}>
+            <div className={styles.footerIcon}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg>
             </div>
-            <span className="serif" style={{ fontSize: 16, color: "var(--ink)" }}>Snapstore</span>
+            <span className={`${styles.serif} ${styles.footerLogoText}`}>Snapstore</span>
           </div>
-          <div style={{ display: "flex", gap: isMobile ? 16 : 24, flexWrap: "wrap" }}>
+          <div className={`${styles.footerLinks} ${isMobile ? styles.mobile : ""}`}>
             {[["Features", "#features"], ["How it works", "#how-it-works"], ["Pricing", "#pricing"]].map(([l, h]) => (
-              <a key={l} href={h} style={{ fontSize: 13, color: "var(--ink-3)", textDecoration: "none", transition: "color .15s" }}
-                onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
-                onMouseLeave={e => e.currentTarget.style.color = "var(--ink-3)"}
-              >{l}</a>
+              <a key={l} href={h} className={styles.footerLinkItem}>{l}</a>
             ))}
           </div>
-          <p style={{ fontSize: 12, color: "var(--ink-4)" }}>Self-hosted · Open source · No subscription</p>
+          <p className={styles.footerCopyright}>© 2026 Snapshot. All rights reserved.</p>
         </div>
       </footer>
+
     </div>
   );
 }
