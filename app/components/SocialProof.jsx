@@ -43,7 +43,7 @@ export default function SocialProof() {
             marginBottom: 34,
           }}
         >
-           <h3
+          <h3
             style={{
               fontFamily: "'Instrument Serif', serif",
               fontSize: "clamp(23px, 2vw, 40px)",
@@ -52,7 +52,7 @@ export default function SocialProof() {
               letterSpacing: "-0.05em",
             }}
           >
-          Trusted by teams building modern products
+            Trusted by teams building modern products
           </h3>
         </div>
         <div

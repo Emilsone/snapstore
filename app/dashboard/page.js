@@ -4,34 +4,34 @@ import { formatDistanceToNow, format } from "date-fns";
 
 /* ── Helpers ────────────────────────────────────────────────────────────── */
 const SCHEDULES = [
-  { value: "hourly",  label: "Every hour"  },
-  { value: "daily",   label: "Every day"   },
-  { value: "weekly",  label: "Every week"  },
+  { value: "hourly", label: "Every hour" },
+  { value: "daily", label: "Every day" },
+  { value: "weekly", label: "Every week" },
   { value: "monthly", label: "Every month" },
 ];
 
-function ago(d)    { if (!d) return "Never"; try { return formatDistanceToNow(new Date(d), { addSuffix: true }); } catch { return "—"; } }
-function fDate(d)  { try { return format(new Date(d), "d MMM yyyy"); } catch { return "—"; } }
-function fTime(d)  { try { return format(new Date(d), "HH:mm"); } catch { return "—"; } }
-function fBytes(b) { if (!b) return ""; if (b < 1024) return b + " B"; if (b < 1048576) return (b/1024).toFixed(0) + " KB"; return (b/1048576).toFixed(1) + " MB"; }
+function ago(d) { if (!d) return "Never"; try { return formatDistanceToNow(new Date(d), { addSuffix: true }); } catch { return "—"; } }
+function fDate(d) { try { return format(new Date(d), "d MMM yyyy"); } catch { return "—"; } }
+function fTime(d) { try { return format(new Date(d), "HH:mm"); } catch { return "—"; } }
+function fBytes(b) { if (!b) return ""; if (b < 1024) return b + " B"; if (b < 1048576) return (b / 1024).toFixed(0) + " KB"; return (b / 1048576).toFixed(1) + " MB"; }
 
 /* ── Tiny icon component (inline SVG, no deps) ──────────────────────────── */
 const paths = {
-  camera:    "M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
-  plus:      "M12 5v14M5 12h14",
-  trash:     "M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6",
-  x:         "M18 6L6 18M6 6l12 12",
-  external:  "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3h6v6 M10 14L21 3",
-  pause:     "M6 4h4v16H6zM14 4h4v16h-4z",
-  play:      "M5 3l14 9-14 9V3z",
-  logout:    "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9",
-  image:     "M21 15l-5-5L5 21 M3 3h18v18H3z M8.5 8.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
-  grid:      "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
-  clock:     "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z M12 6v6l4 2",
-  flag:      "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15",
-  chevronR:  "M9 18l6-6-6-6",
-  zoom:      "M11 19A8 8 0 1 0 11 3a8 8 0 0 0 0 16z M21 21l-4.35-4.35",
-  download:  "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3",
+  camera: "M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+  plus: "M12 5v14M5 12h14",
+  trash: "M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6",
+  x: "M18 6L6 18M6 6l12 12",
+  external: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6 M15 3h6v6 M10 14L21 3",
+  pause: "M6 4h4v16H6zM14 4h4v16h-4z",
+  play: "M5 3l14 9-14 9V3z",
+  logout: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17l5-5-5-5 M21 12H9",
+  image: "M21 15l-5-5L5 21 M3 3h18v18H3z M8.5 8.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+  grid: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",
+  clock: "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z M12 6v6l4 2",
+  flag: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15",
+  chevronR: "M9 18l6-6-6-6",
+  zoom: "M11 19A8 8 0 1 0 11 3a8 8 0 0 0 0 16z M21 21l-4.35-4.35",
+  download: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3",
 };
 
 function Icon({ n, size = 15, style: s }) {
@@ -39,7 +39,7 @@ function Icon({ n, size = 15, style: s }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
       stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"
       style={{ flexShrink: 0, ...s }}>
-      <path d={paths[n]}/>
+      <path d={paths[n]} />
     </svg>
   );
 }
@@ -57,18 +57,18 @@ function Toasts({ list }) {
 
 /* ── Main ───────────────────────────────────────────────────────────────── */
 export default function App() {
-  const [urls,        setUrls]        = useState([]);
-  const [loading,     setLoading]     = useState(true);
-  const [sel,         setSel]         = useState(null);          // selected URL entry
-  const [shots,       setShots]       = useState([]);
-  const [shotsLoad,   setShotsLoad]   = useState(false);
-  const [capturing,   setCapturing]   = useState(null);          // id being captured
-  const [delUrlId,    setDelUrlId]    = useState(null);
-  const [showAdd,     setShowAdd]     = useState(false);
-  const [lightbox,    setLightbox]    = useState(null);
-  const [toasts,      setToasts]      = useState([]);
-  const [form,        setForm]        = useState({ name: "", url: "https://", schedule: "daily" });
-  const [formBusy,    setFormBusy]    = useState(false);
+  const [urls, setUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sel, setSel] = useState(null);          // selected URL entry
+  const [shots, setShots] = useState([]);
+  const [shotsLoad, setShotsLoad] = useState(false);
+  const [capturing, setCapturing] = useState(null);          // id being captured
+  const [delUrlId, setDelUrlId] = useState(null);
+  const [showAdd, setShowAdd] = useState(false);
+  const [lightbox, setLightbox] = useState(null);
+  const [toasts, setToasts] = useState([]);
+  const [form, setForm] = useState({ name: "", url: "https://", schedule: "daily" });
+  const [formBusy, setFormBusy] = useState(false);
 
   /* toast helper */
   const toast = useCallback((msg, type = "info") => {
@@ -208,14 +208,14 @@ export default function App() {
               borderRadius: "var(--r-sm)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <Icon n="camera" size={13} style={{ color: "#fff" }}/>
+              <Icon n="camera" size={13} style={{ color: "#fff" }} />
             </div>
             <span className="serif" style={{ fontSize: 18, letterSpacing: "-.01em", color: "var(--ink)" }}>
               Snapstore
             </span>
           </div>
 
-          <div style={{ flex: 1 }}/>
+          <div style={{ flex: 1 }} />
 
           {/* Count pill */}
           {urls.length > 0 && (
@@ -229,12 +229,12 @@ export default function App() {
           )}
 
           <button className="btn btn-ghost btn-sm" onClick={logout} style={{ gap: 5 }}>
-            <Icon n="logout" size={13}/>
+            <Icon n="logout" size={13} />
             Sign out
           </button>
 
           <button className="btn btn-fill btn-sm" onClick={() => setShowAdd(true)} style={{ gap: 5 }}>
-            <Icon n="plus" size={13}/>
+            <Icon n="plus" size={13} />
             Add URL
           </button>
         </div>
@@ -268,15 +268,15 @@ export default function App() {
             <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 6 }}>
               {[80, 65, 75].map((w, i) => (
                 <div key={i} style={{ padding: "11px 10px", borderRadius: "var(--r-sm)" }}>
-                  <div className="skeleton" style={{ height: 11, width: `${w}%`, marginBottom: 7 }}/>
-                  <div className="skeleton" style={{ height: 9, width: "55%" }}/>
+                  <div className="skeleton" style={{ height: 11, width: `${w}%`, marginBottom: 7 }} />
+                  <div className="skeleton" style={{ height: 9, width: "55%" }} />
                 </div>
               ))}
             </div>
           ) : urls.length === 0 ? (
             <div style={{ padding: "40px 16px", textAlign: "center" }}>
               <div className="empty-icon" style={{ margin: "0 auto 10px" }}>
-                <Icon n="flag" size={18}/>
+                <Icon n="flag" size={18} />
               </div>
               <p style={{ fontSize: 12.5, color: "var(--ink-2)", fontWeight: 500, marginBottom: 4 }}>No URLs yet</p>
               <p style={{ fontSize: 12, color: "var(--ink-4)" }}>Add one to start archiving</p>
@@ -305,7 +305,7 @@ export default function App() {
                   >
                     {/* Status dot */}
                     <span className={`dot ${entry.active ? "dot-green" : "dot-stone"}`}
-                      style={{ marginTop: 1, flexShrink: 0 }}/>
+                      style={{ marginTop: 1, flexShrink: 0 }} />
 
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p className="truncate" style={{
@@ -352,7 +352,7 @@ export default function App() {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 color: "var(--ink-3)", marginBottom: 16,
               }}>
-                <Icon n="image" size={22}/>
+                <Icon n="image" size={22} />
               </div>
               <p className="serif" style={{ fontSize: 20, color: "var(--ink)", marginBottom: 6 }}>
                 Select a URL to view its archive
@@ -380,7 +380,7 @@ export default function App() {
                         {sel.name}
                       </h1>
                       <span className={`badge ${sel.active ? "badge-green" : "badge-stone"}`}>
-                        <span className={`dot ${sel.active ? "dot-green" : "dot-stone"}`} style={{ width: 5, height: 5 }}/>
+                        <span className={`dot ${sel.active ? "dot-green" : "dot-stone"}`} style={{ width: 5, height: 5 }} />
                         {sel.active ? "Active" : "Paused"}
                       </span>
                       <span className="badge badge-blue">{sel.schedule}</span>
@@ -398,15 +398,15 @@ export default function App() {
                       onMouseLeave={e => e.currentTarget.style.color = "var(--ink-3)"}
                     >
                       {sel.url}
-                      <Icon n="external" size={11}/>
+                      <Icon n="external" size={11} />
                     </a>
 
                     {/* Stats strip */}
                     <div style={{ display: "flex", gap: 22, marginTop: 14, flexWrap: "wrap" }}>
                       {[
-                        ["Snapshots",     sel.screenshot_count || "0"],
+                        ["Snapshots", sel.screenshot_count || "0"],
                         ["Last captured", ago(sel.last_captured_at)],
-                        ["Added",         ago(sel.created_at)],
+                        ["Added", ago(sel.created_at)],
                       ].map(([label, val]) => (
                         <div key={label}>
                           <p style={{ fontSize: 10.5, color: "var(--ink-3)", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>
@@ -421,7 +421,7 @@ export default function App() {
                   {/* Right: actions */}
                   <div style={{ display: "flex", gap: 7, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
                     <button className="btn btn-outline btn-sm" onClick={() => toggleActive(sel)}>
-                      <Icon n={sel.active ? "pause" : "play"} size={12}/>
+                      <Icon n={sel.active ? "pause" : "play"} size={12} />
                       {sel.active ? "Pause" : "Resume"}
                     </button>
 
@@ -430,8 +430,8 @@ export default function App() {
                       disabled={capturing === sel.id}
                     >
                       {capturing === sel.id
-                        ? <><div className="spin spin-sm spin-inv"/>Capturing…</>
-                        : <><Icon n="camera" size={12}/>Capture now</>
+                        ? <><div className="spin spin-sm spin-inv" />Capturing…</>
+                        : <><Icon n="camera" size={12} />Capture now</>
                       }
                     </button>
 
@@ -441,8 +441,8 @@ export default function App() {
                       title="Delete this URL"
                     >
                       {delUrlId === sel.id
-                        ? <div className="spin spin-sm"/>
-                        : <Icon n="trash" size={12}/>
+                        ? <div className="spin spin-sm" />
+                        : <Icon n="trash" size={12} />
                       }
                     </button>
                   </div>
@@ -457,12 +457,12 @@ export default function App() {
                     gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
                     gap: 14,
                   }}>
-                    {[1,2,3,4,5,6].map(i => (
+                    {[1, 2, 3, 4, 5, 6].map(i => (
                       <div key={i} className="card" style={{ overflow: "hidden" }}>
-                        <div className="skeleton" style={{ height: 164 }}/>
+                        <div className="skeleton" style={{ height: 164 }} />
                         <div style={{ padding: "11px 13px" }}>
-                          <div className="skeleton" style={{ height: 11, width: "55%", marginBottom: 6 }}/>
-                          <div className="skeleton" style={{ height: 9, width: "40%" }}/>
+                          <div className="skeleton" style={{ height: 11, width: "55%", marginBottom: 6 }} />
+                          <div className="skeleton" style={{ height: 9, width: "40%" }} />
                         </div>
                       </div>
                     ))}
@@ -481,7 +481,7 @@ export default function App() {
                       display: "flex", alignItems: "center", justifyContent: "center",
                       color: "var(--ink-3)", margin: "0 auto 14px",
                     }}>
-                      <Icon n="camera" size={20}/>
+                      <Icon n="camera" size={20} />
                     </div>
                     <p className="serif" style={{ fontSize: 18, color: "var(--ink)", marginBottom: 6 }}>
                       No snapshots yet
@@ -494,8 +494,8 @@ export default function App() {
                       disabled={capturing === sel.id}
                     >
                       {capturing === sel.id
-                        ? <><div className="spin spin-inv spin-sm"/>Capturing…</>
-                        : <><Icon n="camera" size={13}/>Capture now</>
+                        ? <><div className="spin spin-inv spin-sm" />Capturing…</>
+                        : <><Icon n="camera" size={13} />Capture now</>
                       }
                     </button>
                   </div>
@@ -568,7 +568,7 @@ export default function App() {
                               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
                                 stroke="white" strokeWidth="1.75" strokeLinecap="round"
                                 style={{ opacity: 0, transition: "opacity .2s" }}>
-                                <path d={paths.zoom}/>
+                                <path d={paths.zoom} />
                               </svg>
                             </div>
                           </div>
@@ -585,7 +585,7 @@ export default function App() {
                                 {fDate(shot.captured_at)}
                               </p>
                               <p style={{ fontSize: 11, color: "var(--ink-3)", display: "flex", alignItems: "center", gap: 4 }}>
-                                <Icon n="clock" size={10}/>
+                                <Icon n="clock" size={10} />
                                 {fTime(shot.captured_at)}
                                 {shot.file_size ? <> · {fBytes(shot.file_size)}</> : ""}
                               </p>
@@ -599,14 +599,14 @@ export default function App() {
                                 title="Download"
                                 style={{ padding: "0 7px" }}
                               >
-                                <Icon n="download" size={12}/>
+                                <Icon n="download" size={12} />
                               </a>
                               <button className="btn btn-ghost btn-danger btn-sm"
                                 onClick={() => deleteShot(shot)}
                                 title="Delete"
                                 style={{ padding: "0 7px" }}
                               >
-                                <Icon n="trash" size={12}/>
+                                <Icon n="trash" size={12} />
                               </button>
                             </div>
                           </div>
@@ -629,7 +629,7 @@ export default function App() {
               <p className="serif" style={{ fontSize: 17, color: "var(--ink)" }}>Add a URL</p>
               <button className="btn btn-ghost btn-sm" style={{ padding: "0 6px" }}
                 onClick={() => setShowAdd(false)}>
-                <Icon n="x" size={15}/>
+                <Icon n="x" size={15} />
               </button>
             </div>
             <div className="modal-body">
@@ -668,7 +668,7 @@ export default function App() {
                 disabled={formBusy || !form.name || !form.url || form.url === "https://"}
               >
                 {formBusy
-                  ? <><div className="spin spin-sm spin-inv"/>Adding…</>
+                  ? <><div className="spin spin-sm spin-inv" />Adding…</>
                   : "Add URL"
                 }
               </button>
@@ -715,7 +715,7 @@ export default function App() {
                 onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,.18)"}
                 onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,.1)"}
               >
-                <Icon n="download" size={12}/>
+                <Icon n="download" size={12} />
                 Download
               </a>
               <button
@@ -727,7 +727,7 @@ export default function App() {
                   color: "rgba(255,255,255,.6)", cursor: "pointer",
                 }}
               >
-                <Icon n="x" size={14}/>
+                <Icon n="x" size={14} />
               </button>
             </div>
           </div>
@@ -747,7 +747,7 @@ export default function App() {
         </div>
       )}
 
-      <Toasts list={toasts}/>
+      <Toasts list={toasts} />
     </>
   );
 }
