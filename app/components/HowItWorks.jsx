@@ -220,7 +220,7 @@ export default function HowItWorks() {
                             From URL to archive in minutes
                         </h2>
                         <p className={cx(styles.howItWorksDesc, isMobile && styles.mobile)}>
-                            Watch each step happen live — no video needed.
+                            Watch each step happen live, no video needed.
                         </p>
                     </div>
                 </FadeUp>

@@ -149,7 +149,7 @@ export default function Testimonials() {
                 <div
                   style={{
                     position: "relative",
-                    borderRadius: 34,
+                    borderRadius: 24,
                     padding: "46px",
                     overflow: "hidden",
                     background:
@@ -191,7 +191,7 @@ export default function Testimonials() {
                   {/* Testimonial text */}
                   <p
                     style={{
-                      fontSize: "clamp(18px, 2vw, 24px)",
+                      fontSize: "clamp(14px, 2vw, 20px)",
                       lineHeight: 1.8,
                       color: "rgba(10,10,10,.72)",
                       letterSpacing: "-0.01em",

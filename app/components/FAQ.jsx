@@ -4,7 +4,7 @@ import { useState } from "react";
 const FAQS = [
   {
     q: "Do I need any technical experience to set up Snapstore?",
-    a: "You need basic comfort with a terminal. If you can type commands like 'npm install' you're good. The whole setup takes under 5 minutes — unzip, install, add your credentials, run. That's it.",
+    a: "You need basic comfort with a terminal. If you can type commands like 'npm install' you're good. The whole setup takes under 5 minutes, unzip, install, add your credentials, run. That's it.",
   },
   {
     q: "What do I need installed on my machine?",
@@ -12,7 +12,7 @@ const FAQS = [
   },
   {
     q: "Can it screenshot pages that require a login?",
-    a: "Yes, if you run Snapstore on your own machine. Because it uses your local Chrome, it has access to your existing browser sessions and cookies — so any page you're logged into will capture correctly.",
+    a: "Yes, if you run Snapstore on your own machine. Because it uses your local Chrome, it has access to your existing browser sessions and cookies, so any page you're logged into will capture correctly.",
   },
   {
     q: "Where are my screenshots stored?",
@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: "Is there a limit to how many URLs I can track?",
-    a: "No limits at all. Track as many pages as your storage can hold. There are no artificial caps — you own the software and the data.",
+    a: "No limits at all. Track as many pages as your storage can hold. There are no artificial caps, you own the software and the data.",
   },
 ];
 
@@ -71,7 +71,7 @@ export default function FAQ() {
           </h2>
         </div>
 
- 
+
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {FAQS.map((faq, i) => (
             <div
@@ -79,12 +79,11 @@ export default function FAQ() {
               style={{
                 background:
                   open === i ? "rgba(255,255,255,.9)" : "rgba(255,255,255,.6)",
-                border: `1px solid ${
-                  open === i
-                    ? "rgba(10,10,10,.10)"
-                    : "rgba(10,10,10,.06)"
-                }`,
-                borderRadius: 12,
+                border: `1px solid ${open === i
+                  ? "rgba(10,10,10,.10)"
+                  : "rgba(10,10,10,.06)"
+                  }`,
+                borderRadius: 6,
                 overflow: "hidden",
                 transition: "all .2s ease",
                 backdropFilter: "blur(10px)",
@@ -108,7 +107,7 @@ export default function FAQ() {
               >
                 <span
                   style={{
-                    fontSize: 14.5,
+                    fontSize: 16,
                     fontWeight: 500,
                     color: open === i ? "#0a0a0a" : "rgba(10,10,10,.75)",
                     lineHeight: 1.4,
@@ -163,7 +162,7 @@ export default function FAQ() {
 
                   <p
                     style={{
-                      fontSize: 14,
+                      fontSize: 16,
                       color: "rgba(10,10,10,.65)",
                       lineHeight: 1.75,
                       borderTop: "1px solid rgba(10,10,10,.06)",
@@ -178,12 +177,12 @@ export default function FAQ() {
           ))}
         </div>
 
- 
+
         <div style={{ textAlign: "center", marginTop: 48 }}>
           <p
             style={{
               fontSize: 16,
-              fontBold:800,
+              fontBold: 800,
               color: "rgba(10,10,10,.55)",
               marginBottom: 16,
             }}

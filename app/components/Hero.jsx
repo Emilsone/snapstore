@@ -36,9 +36,9 @@ export default function Hero() {
                     </Link>
                     <a
                         href="#how-it-works"
-                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "var(--ink-2)", border: "1px solid var(--rule)", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", backdropFilter: "blur(8px)", transition: "all .15s" }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "var(--ink-2)", border: "1px solid var(--rule)", padding: isMobile ? "12px 22px" : "13px 28px", borderRadius: "var(--r-md)", fontSize: isMobile ? 14 : 15, fontWeight: 500, textDecoration: "none", backdropFilter: "blur(8px)", transition: "all .15s" }}
                         onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--rule-mid)"; e.currentTarget.style.background = "var(--overlay)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.color = "var(--ink-2)"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "transparent"; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = "var(--ink-2)"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "#fff"; }}
                     >
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10" /><polygon points="10 8 16 12 10 16 10 8" /></svg>
                         See how it works
