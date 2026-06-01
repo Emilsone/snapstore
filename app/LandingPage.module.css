@@ -804,7 +804,7 @@
 }
 
 .footerLinkItem {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-3);
   text-decoration: none;
   transition: color .15s;
@@ -815,6 +815,6 @@
 }
 
 .footerCopyright {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--ink-4);
 }

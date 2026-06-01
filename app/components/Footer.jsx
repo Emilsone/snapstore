@@ -19,7 +19,7 @@ export default function Footer() {
                     <span className={cx(styles.serif, styles.footerLogoText)}>Snapstore</span>
                 </div>
                 <div className={cx(styles.footerLinks, isMobile && styles.mobile)}>
-                    {[["Features", "#features"], ["How it works", "#how-it-works"], ["Pricing", "#pricing"]].map(([l, h]) => (
+                    {[["Features", "#features"], ["How it works", "#how-it-works"], ["Documentation"]].map(([l, h]) => (
                         <a key={l} href={h} className={styles.footerLinkItem}>{l}</a>
                     ))}
                 </div>
