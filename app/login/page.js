@@ -92,8 +92,8 @@ export default function LoginPage() {
             <Link href="/" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 0 }}>
               <div style={{ width: 34, height: 34, background: "#fff", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" strokeWidth="2" strokeLinecap="round">
-                  <rect x="3" y="4" width="18" height="14" rx="2"/>
-                  <path d="M8 20h8M12 18v2"/>
+                  <rect x="3" y="4" width="18" height="14" rx="2" />
+                  <path d="M8 20h8M12 18v2" />
                 </svg>
               </div>
               <span className="serif" style={{ fontSize: 22, color: "#fff", letterSpacing: "-.015em" }}>Snapstore</span>
@@ -158,8 +158,8 @@ export default function LoginPage() {
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
                       {showPass
-                        ? <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></>
-                        : <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></>
+                        ? <><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" /><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" /><line x1="1" y1="1" x2="23" y2="23" /></>
+                        : <><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></>
                       }
                     </svg>
                   </button>
@@ -184,20 +184,14 @@ export default function LoginPage() {
                 style={{ marginTop: 6 }}
               >
                 {loading
-                  ? <><div className="spin-sm"/>Signing in…</>
+                  ? <><div className="spin-sm" />Signing in…</>
                   : "Sign in to dashboard"
                 }
               </button>
             </form>
           </div>
 
-          <p style={{ textAlign: "center", marginTop: 20, fontSize: 12, color: "rgba(255,255,255,.2)", lineHeight: 1.7 }}>
-            Set credentials via{" "}
-            <code style={{ fontSize: 11, background: "rgba(255,255,255,.07)", padding: "1px 6px", borderRadius: 4, color: "rgba(255,255,255,.35)" }}>STILLIO_USERNAME</code>
-            {" "}&amp;{" "}
-            <code style={{ fontSize: 11, background: "rgba(255,255,255,.07)", padding: "1px 6px", borderRadius: 4, color: "rgba(255,255,255,.35)" }}>STILLIO_PASSWORD</code>
-            {" "}in your <code style={{ fontSize: 11, background: "rgba(255,255,255,.07)", padding: "1px 6px", borderRadius: 4, color: "rgba(255,255,255,.35)" }}>.env.local</code>
-          </p>
+
 
           <div style={{ textAlign: "center", marginTop: 16 }}>
             <Link href="/" style={{ fontSize: 13, color: "rgba(255,255,255,.25)", textDecoration: "none", transition: "color .15s" }}
