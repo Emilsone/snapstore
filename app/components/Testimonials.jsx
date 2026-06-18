@@ -23,7 +23,7 @@ const TESTIMONIALS = [
 
   {
     quote:
-      "What sold me was the self-hosted part. I work with sensitive internal tools, so uploading screenshots to random third-party services was always a no for me. Snapstore feels private and lightweight which I appreciate.",
+      "The fact that Snapstore is self-hosted won me over instantly. I handle a lot of sensitive internal tools, so third-party cloud uploads are a hard no. It feels lightweight, entirely private, and just works.",
     name: "David Chen",
     role: "Security Engineer",
     image:
