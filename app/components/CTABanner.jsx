@@ -12,7 +12,6 @@ export default function CTABanner() {
     return (
         <section className={cx(styles.ctaSection, isMobile && styles.mobile)}>
             <FadeUp>
-                <p className={styles.ctaMeta}>Get started today</p>
                 <h2 className={cx(styles.serif, styles.ctaTitle, isMobile && styles.mobile)}>
                     Stop losing track of<br />how your pages looked.
                 </h2>
@@ -20,7 +19,7 @@ export default function CTABanner() {
                     Set up Snapstore in under 5 minutes. Your first snapshot is one click away.
                 </p>
                 <Link href="/login" className={cx(styles.ctaButton, isMobile && styles.mobile)}>
-                    Open dashboard →
+                    Start Tracking →
                 </Link>
             </FadeUp>
         </section>

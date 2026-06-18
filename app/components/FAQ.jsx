@@ -7,10 +7,6 @@ const FAQS = [
     a: "You need basic comfort with a terminal. If you can type commands like 'npm install' you're good. The whole setup takes under 5 minutes, unzip, install, add your credentials, run. That's it.",
   },
   {
-    q: "What do I need installed on my machine?",
-    a: "Two things: Node.js (free, from nodejs.org) and Google Chrome (which you probably already have). Snapstore uses Chrome under the hood to render and screenshot pages exactly as they appear in a browser.",
-  },
-  {
     q: "Can it screenshot pages that require a login?",
     a: "Yes, if you run Snapstore on your own machine. Because it uses your local Chrome, it has access to your existing browser sessions and cookies, so any page you're logged into will capture correctly.",
   },

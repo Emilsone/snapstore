@@ -1,4 +1,11 @@
+import { cx } from "../utils/cx";
+import styles from "../LandingPage.module.css";
+import { useWindowWidth } from "../hooks/useWindowWidth";
+
+
 export default function SocialProof() {
+  const w = useWindowWidth();
+  const isMobile = w < 768;
   const logos = [
     {
       name: "Google",
@@ -37,23 +44,11 @@ export default function SocialProof() {
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div
-          style={{
-            textAlign: "center",
-            marginBottom: 34,
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: "'Instrument Serif', serif",
-              fontSize: "clamp(23px, 2vw, 40px)",
-              lineHeight: 1,
-              color: "#0a0a0a",
-              letterSpacing: "-0.05em",
-            }}
-          >
+        <div className={cx(styles.sectionHeader, isMobile && styles.mobile)}>
+
+          <h2 className={cx(styles.serif, styles.sectionHeading, isMobile && styles.mobile)}>
             Trusted by teams building modern products
-          </h3>
+          </h2>
         </div>
         <div
           style={{
