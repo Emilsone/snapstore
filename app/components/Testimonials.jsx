@@ -23,15 +23,6 @@ const TESTIMONIALS = [
 
   {
     quote:
-      "The fact that Snapstore is self-hosted won me over instantly. I handle a lot of sensitive internal tools, so third-party cloud uploads are a hard no. It feels lightweight, entirely private, and just works.",
-    name: "David Chen",
-    role: "Security Engineer",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
-  },
-
-  {
-    quote:
       "I’ve tried a few website monitoring tools before and most of them felt overly technical. This one just made sense immediately. Clean UI, easy setup, and the timeline view is honestly really satisfying to scroll through.",
     name: "Sofia Martinez",
     role: "Product Designer",
