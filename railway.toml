@@ -8,3 +8,8 @@ restartPolicyMaxRetries = 3
 
 [[services]]
 name = "snapstore"
+
+[[cronJobs]]
+name = "screenshot-scheduler"
+schedule = "0 * * * *"
+command = "curl -H 'Authorization: Bearer $CRON_SECRET' https://your-railway-domain.railway.app/api/cron"
