@@ -5,8 +5,9 @@ export async function POST(req) {
   try {
     const { username, password } = await req.json();
 
-    const validUsername = process.env.STILLIO_USERNAME || 'admin';
-    const validPassword = process.env.STILLIO_PASSWORD || 'changeme';
+
+    const validUsername = process.env.SNAPSTORE_USERNAME || 'admin';
+    const validPassword = process.env.SNAPSTORE_PASSWORD || 'changeme';
 
     if (username !== validUsername || password !== validPassword) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
