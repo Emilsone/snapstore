@@ -5,6 +5,7 @@ data/
 public/screenshots/
 .env
 .env.local
+.env.example 
 .env.production
 .DS_Store
 Thumbs.db

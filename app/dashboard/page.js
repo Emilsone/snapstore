@@ -285,38 +285,49 @@ export default function App() {
                     style={{
                       width: "100%", textAlign: "left",
                       padding: "10px 10px",
-                      borderRadius: "var(--r-sm)",
+                      borderRadius: "var(--radius)",
                       border: "none",
-                      background: active ? "var(--overlay)" : "transparent",
+                      background: active ? "var(--surface-2)" : "transparent",
                       cursor: "pointer",
                       display: "flex", alignItems: "center", gap: 8,
-                      transition: "background .12s",
+                      transition: "background .16s",
                       marginBottom: 1,
                     }}
-                    onMouseEnter={e => { if (!active) e.currentTarget.style.background = "var(--canvas)"; }}
-                    onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}
+                    onMouseEnter={e => {
+                      if (!active) e.currentTarget.style.background = "var(--surface-2)";
+                      e.currentTarget.querySelector(".entry-name").style.color = "var(--text)";
+                      e.currentTarget.querySelector(".entry-url").style.color = "var(--text-2)";
+                    }}
+                    onMouseLeave={e => {
+                      if (!active) e.currentTarget.style.background = "transparent";
+                      e.currentTarget.querySelector(".entry-name").style.color = active ? "var(--text)" : "var(--text-2)";
+                      e.currentTarget.querySelector(".entry-url").style.color = "var(--text)";
+                    }}
                   >
-                    {/* Status dot */}
                     <span className={`dot ${entry.active ? "dot-green" : "dot-stone"}`}
                       style={{ marginTop: 1, flexShrink: 0 }} />
 
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <p className="truncate" style={{
-                        fontSize: 14, fontWeight: active ? 500 : 400,
-                        color: "var(--rule)", marginBottom: 2,
+                      <p className="truncate entry-name" style={{
+                        fontSize: 13, fontWeight: active ? 600 : 400,
+                        color: active ? "var(--text)" : "var(--text-2)",
+                        marginBottom: 2, transition: "color .12s",
                       }}>
                         {entry.name}
                       </p>
-                      <p className="truncate mono" style={{ fontSize: 11, color: "var(--ink-3)" }}>
+                      <p className="truncate mono entry-url" style={{
+                        fontSize: 11, color: "var(--text-3)",
+                        transition: "color .12s",
+                      }}>
                         {entry.url.replace(/https?:\/\//, "")}
                       </p>
                     </div>
 
                     {entry.screenshot_count > 0 && (
                       <span style={{
-                        fontSize: 12, color: "var(--text)",
-                        background: "var(--danger)", borderRadius: "var(--r-full)",
-                        padding: "2px 6px", flexShrink: 0,
+                        fontSize: 11, color: "var(--text)",
+                        background: "var(--danger)", border: "1px solid var(--border)",
+                        borderRadius: 99, padding: "1px 7px", flexShrink: 0,
                       }}>
                         {entry.screenshot_count}
                       </span>
@@ -369,7 +380,7 @@ export default function App() {
                   {/* Left: name + meta */}
                   <div style={{ flex: 1, minWidth: 200 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 5, flexWrap: "wrap" }}>
-                      <h1 className="serif" style={{ fontSize: 20, color: "var(--ink)", lineHeight: 1.2 }}>
+                      <h1 className="serif" style={{ fontSize: 20, color: "var(--text)", lineHeight: 1.2 }}>
                         {sel.name}
                       </h1>
                       <span className={`badge ${sel.active ? "badge-green" : "badge-stone"}`}>
@@ -382,7 +393,7 @@ export default function App() {
                     <a href={sel.url} target="_blank" rel="noopener noreferrer"
                       className="mono"
                       style={{
-                        fontSize: 11.5, color: "var(--ink-3)",
+                        fontSize: 11.5, color: "var(--ink-4)",
                         display: "inline-flex", alignItems: "center", gap: 4,
                         textDecoration: "none",
                         transition: "color .12s",
@@ -402,10 +413,10 @@ export default function App() {
                         ["Added", ago(sel.created_at)],
                       ].map(([label, val]) => (
                         <div key={label}>
-                          <p style={{ fontSize: 10.5, color: "var(--ink-3)", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>
+                          <p style={{ fontSize: 10.5, color: "var(--ink-4)", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>
                             {label}
                           </p>
-                          <p style={{ fontSize: 13, fontWeight: 500, color: "var(--ink-2)" }}>{val}</p>
+                          <p style={{ fontSize: 13, fontWeight: 500, color: "var(--ink-4)" }}>{val}</p>
                         </div>
                       ))}
                     </div>
@@ -500,9 +511,9 @@ export default function App() {
                       display: "flex", alignItems: "center",
                       justifyContent: "space-between", marginBottom: 16,
                     }}>
-                      <p style={{ fontSize: 12.5, color: "var(--ink-3)" }}>
+                      <p style={{ fontSize: 13.5, color: "var(--ink)", fontWeight: "bold" }}>
                         {shots.length} snapshot{shots.length !== 1 ? "s" : ""}
-                        <span style={{ marginLeft: 6, color: "var(--ink-4)" }}>· newest first</span>
+                        <span style={{ marginLeft: 6, color: "var(--ink)", fontWeight: "bold" }}>· newest first</span>
                       </p>
                     </div>
 
