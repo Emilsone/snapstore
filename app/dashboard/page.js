@@ -2,7 +2,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { formatDistanceToNow, format } from "date-fns";
 
-
 const SCHEDULES = [
   { value: "hourly", label: "Every hour" },
   { value: "daily", label: "Every day" },
@@ -43,7 +42,6 @@ function Icon({ n, size = 15, style: s }) {
   );
 }
 
-
 function Toasts({ list }) {
   return (
     <div className="toasts">
@@ -53,7 +51,6 @@ function Toasts({ list }) {
     </div>
   );
 }
-
 
 export default function App() {
   const [urls, setUrls] = useState([]);
@@ -216,9 +213,9 @@ export default function App() {
           {/* Count pill */}
           {urls.length > 0 && (
             <span style={{
-              fontSize: 12, color: "var(--ink-3)",
-              background: "var(--overlay)", border: "1px solid var(--rule)",
-              borderRadius: "var(--r-full)", padding: "2px 10px",
+              fontSize: 12, color: "var(--overlay)",
+              background: "var(--ink)", border: "1px solid var(--rule)",
+              borderRadius: "var(--r-full)", padding: "6px 15px",
             }}>
               {urls.length} URL{urls.length !== 1 ? "s" : ""}
             </span>
@@ -305,8 +302,8 @@ export default function App() {
 
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p className="truncate" style={{
-                        fontSize: 13, fontWeight: active ? 500 : 400,
-                        color: "var(--ink)", marginBottom: 2,
+                        fontSize: 14, fontWeight: active ? 500 : 400,
+                        color: "var(--rule)", marginBottom: 2,
                       }}>
                         {entry.name}
                       </p>
@@ -317,9 +314,9 @@ export default function App() {
 
                     {entry.screenshot_count > 0 && (
                       <span style={{
-                        fontSize: 11, color: "var(--ink-4)",
-                        background: "var(--overlay)", borderRadius: "var(--r-full)",
-                        padding: "1px 6px", flexShrink: 0,
+                        fontSize: 12, color: "var(--text)",
+                        background: "var(--danger)", borderRadius: "var(--r-full)",
+                        padding: "2px 6px", flexShrink: 0,
                       }}>
                         {entry.screenshot_count}
                       </span>
@@ -342,18 +339,18 @@ export default function App() {
               padding: "40px 24px", textAlign: "center",
             }}>
               <div style={{
-                width: 52, height: 52,
+                width: 60, height: 60,
                 borderRadius: "var(--r-md)",
                 background: "var(--surface)", border: "1px solid var(--rule)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: "var(--ink-3)", marginBottom: 16,
+                color: "var(--rule)", marginBottom: 16,
               }}>
-                <Icon n="image" size={22} />
+                <Icon n="image" size={26} />
               </div>
               <p className="serif" style={{ fontSize: 20, color: "var(--ink)", marginBottom: 6 }}>
                 Select a URL to view its archive
               </p>
-              <p style={{ fontSize: 13, color: "var(--ink-3)", maxWidth: 300, lineHeight: 1.6 }}>
+              <p style={{ fontSize: 13, color: "var(--surface-2)", maxWidth: 300, lineHeight: 1.6 }}>
                 Pick from the sidebar, or add a URL to start building your snapshot history.
               </p>
             </div>
