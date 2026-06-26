@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap');
-/* @import "tailwindcss"; */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
 
 *,
 *::before,
@@ -10,6 +9,7 @@
 }
 
 :root {
+  /* Dark theme variables (used by dashboard) */
   --bg: #0a0a0a;
   --surface: #111111;
   --surface-2: #1a1a1a;
@@ -25,6 +25,31 @@
   --danger-dim: rgba(255, 68, 68, 0.12);
   --success: #44ff88;
   --radius: 6px;
+
+  /* Light theme variables (used by landing page) */
+  --canvas: #F9F8F6;
+  --overlay: #F2F1EF;
+  --rule: #E4E2DE;
+  --rule-mid: #D0CEC9;
+  --ink: #1A1916;
+  --ink-2: #5C5A55;
+  --ink-3: #9A9790;
+  --ink-4: #C4C2BC;
+  --blue: #1D4ED8;
+  --blue-bg: #EEF3FD;
+  --green: #166534;
+  --green-bg: #DCFCE7;
+  --red: #991B1B;
+  --red-bg: #FEE2E2;
+  --r-xs: 3px;
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-full: 999px;
+
+  /* Shared */
+  --spin-color: var(--accent);
 }
 
 html {
@@ -38,9 +63,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-
 }
-
 
 ::selection {
   background: var(--accent);
@@ -64,6 +87,11 @@ body {
   font-family: 'DM Mono', monospace;
 }
 
+.serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -92,10 +120,97 @@ body {
   }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes stepIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: .5;
+    transform: scale(.85);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .fade-in {
   animation: fadeIn .3s ease both;
 }
 
+/* Skeleton */
 .skeleton {
   background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 50%, var(--surface-2) 75%);
   background-size: 400px 100%;
@@ -103,6 +218,7 @@ body {
   border-radius: var(--radius);
 }
 
+/* Spinner */
 .spinner {
   display: inline-block;
   width: 14px;
@@ -120,6 +236,27 @@ body {
 }
 
 .spinner-inv {
+  border-color: rgba(0, 0, 0, .2);
+  border-top-color: #000;
+}
+
+.spin {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--border-hover);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .65s linear infinite;
+  flex-shrink: 0;
+}
+
+.spin-sm {
+  width: 12px;
+  height: 12px;
+}
+
+.spin-inv {
   border-color: rgba(0, 0, 0, .2);
   border-top-color: #000;
 }
@@ -157,6 +294,27 @@ body {
 
 .btn-primary:hover {
   background: #d4f566;
+}
+
+.btn-fill {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.btn-fill:hover {
+  background: #2E2C28;
+}
+
+.btn-outline {
+  background: var(--surface);
+  color: var(--ink-2);
+  border-color: var(--rule);
+}
+
+.btn-outline:hover {
+  border-color: var(--rule-mid);
+  color: var(--ink);
 }
 
 .btn-secondary {
@@ -261,7 +419,17 @@ select.input {
   padding-right: 32px;
 }
 
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color .15s;
+}
 
+.card:hover {
+  border-color: var(--border-hover);
+}
 
 /* Badge */
 .badge {
@@ -291,6 +459,11 @@ select.input {
 .badge-accent {
   background: var(--accent-dim2);
   color: var(--accent);
+}
+
+.badge-blue {
+  background: var(--blue-bg);
+  color: var(--blue);
 }
 
 /* Dot */
@@ -434,20 +607,62 @@ hr {
   white-space: nowrap;
 }
 
-.mono {
-  font-family: 'DM Mono', monospace;
+/* Landing page hero gradient */
+.hero-grad {
+  background: linear-gradient(135deg, #f9f8f6 0%, #eef3fd 40%, #f0fdf4 70%, #fef9ee 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
 }
 
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
+/* Nav links for landing page */
+.nav-link {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: var(--r-sm);
+  transition: all .12s;
+}
 
-  50% {
-    background-position: 100% 50%;
-  }
+.nav-link:hover {
+  background: var(--overlay);
+  color: var(--ink);
+}
 
-  100% {
-    background-position: 0% 50%;
-  }
+/* Feature cards for landing page */
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .08);
+}
+
+/* Stat cards for landing page */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  text-align: center;
+}
+
+/* Mobile menu link */
+.mobile-menu-link {
+  display: block;
+  padding: 14px 20px;
+  font-size: 16px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color .15s;
+}
+
+.mobile-menu-link:hover {
+  color: var(--ink);
 }
