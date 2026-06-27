@@ -42,6 +42,32 @@ function Icon({ n, size = 15, style: s }) {
   );
 }
 
+function ScrollHint() {
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(false), 2500);
+    return () => clearTimeout(t);
+  }, []);
+  if (!visible) return null;
+  return (
+    <div style={{
+      position: "fixed", bottom: 32, left: "50%", transform: "translateX(-50%)",
+      background: "rgba(17,17,17,.9)", border: "1px solid var(--border)",
+      borderRadius: 99, padding: "8px 18px",
+      display: "flex", alignItems: "center", gap: 8,
+      fontSize: 12.5, color: "var(--text-2)",
+      animation: "fadeIn .3s ease",
+      pointerEvents: "none", zIndex: 300,
+    }}>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+      Scroll to browse the full page
+    </div>
+  );
+}
+
 function Toasts({ list }) {
   return (
     <div className="toasts">
@@ -178,7 +204,6 @@ export default function App() {
     location.href = "/";
   }
 
-  /* ── Render ─────────────────────────────────────────────────────────── */
   return (
     <>
       {/* ── HEADER ─────────────────────────────────────────────────────── */}
@@ -681,43 +706,64 @@ export default function App() {
         </div>
       )}
 
-      {/* ── LIGHTBOX ─────────────────────────────────────────────────────── */}
+      {/* ── SCROLLABLE PAGE VIEWER ── */}
       {lightbox && (
         <div
           style={{
-            position: "fixed", inset: 0,
-            background: "rgba(10,9,8,.88)",
-            backdropFilter: "blur(6px)",
-            zIndex: 200,
+            position: "fixed", inset: 0, zIndex: 200,
+            background: "rgba(0,0,0,.95)",
+            backdropFilter: "blur(8px)",
             display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center",
-            padding: "20px",
           }}
           onClick={() => setLightbox(null)}
         >
           {/* Top bar */}
-          <div style={{
-            position: "fixed", top: 0, left: 0, right: 0,
-            height: 50, padding: "0 20px",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            borderBottom: "1px solid rgba(255,255,255,.08)",
-          }}>
-            <p style={{ fontSize: 12.5, color: "rgba(255,255,255,.55)" }}>
-              {fDate(lightbox.captured_at)} at {fTime(lightbox.captured_at)}
-              {lightbox.file_size ? ` · ${fBytes(lightbox.file_size)}` : ""}
-            </p>
-            <div style={{ display: "flex", gap: 8 }} onClick={e => e.stopPropagation()}>
-              <a href={lightbox.filepath} download
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              height: 52, flexShrink: 0,
+              background: "var(--surface)",
+              borderBottom: "1px solid var(--border)",
+              padding: "0 20px",
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              gap: 16,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--success)", flexShrink: 0 }} />
+              <div style={{ minWidth: 0 }}>
+                <p style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 1 }}>
+                  {fDate(lightbox.captured_at)} at {fTime(lightbox.captured_at)}
+                </p>
+                <p className="mono truncate" style={{ fontSize: 11, color: "var(--text-3)" }}>
+                  {sel?.url}
+                </p>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+              {lightbox.file_size && (
+                <span style={{
+                  fontSize: 11.5, color: "var(--text-3)",
+                  background: "var(--surface-2)", border: "1px solid var(--border)",
+                  borderRadius: 99, padding: "3px 10px",
+                }}>
+                  {fBytes(lightbox.file_size)}
+                </span>
+              )}
+              <a
+                href={lightbox.filepath}
+                download
+                onClick={e => e.stopPropagation()}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 5,
-                  padding: "5px 12px", borderRadius: "var(--r-sm)",
-                  background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.12)",
-                  color: "rgba(255,255,255,.7)", fontSize: 12.5, textDecoration: "none",
-                  cursor: "pointer",
-                  transition: "background .12s",
+                  padding: "6px 14px", borderRadius: "var(--radius)",
+                  background: "var(--surface-2)", border: "1px solid var(--border)",
+                  color: "var(--text-2)", fontSize: 12.5, textDecoration: "none",
+                  transition: "border-color .12s",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,.18)"}
-                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,.1)"}
+                onMouseEnter={e => e.currentTarget.style.borderColor = "var(--accent)"}
+                onMouseLeave={e => e.currentTarget.style.borderColor = "var(--border)"}
               >
                 <Icon n="download" size={12} />
                 Download
@@ -725,29 +771,83 @@ export default function App() {
               <button
                 onClick={() => setLightbox(null)}
                 style={{
-                  display: "inline-flex", alignItems: "center",
-                  padding: "5px 10px", borderRadius: "var(--r-sm)",
-                  background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.1)",
-                  color: "rgba(255,255,255,.6)", cursor: "pointer",
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  width: 32, height: 32, borderRadius: "var(--radius)",
+                  background: "var(--surface-2)", border: "1px solid var(--border)",
+                  color: "var(--text-2)", cursor: "pointer",
+                  transition: "border-color .12s",
                 }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = "var(--danger)"}
+                onMouseLeave={e => e.currentTarget.style.borderColor = "var(--border)"}
               >
                 <Icon n="x" size={14} />
               </button>
             </div>
           </div>
 
-          {/* Image */}
-          <img
-            src={lightbox.filepath}
-            alt="Full snapshot"
+          {/* Scrollable page area */}
+          <div
             onClick={e => e.stopPropagation()}
             style={{
-              maxWidth: "92vw", maxHeight: "calc(100vh - 90px)",
-              objectFit: "contain", borderRadius: "var(--r-md)",
-              border: "1px solid rgba(255,255,255,.08)",
-              display: "block", marginTop: 50,
+              flex: 1, overflowY: "auto", overflowX: "auto",
+              display: "flex", justifyContent: "center",
+              background: "#111", padding: "24px",
             }}
-          />
+          >
+            <div style={{ position: "relative", width: "100%", maxWidth: 1440 }}>
+
+              {/* Browser chrome */}
+              <div style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                borderBottom: "none",
+                borderRadius: "8px 8px 0 0",
+                padding: "10px 14px",
+                display: "flex", alignItems: "center", gap: 10,
+              }}>
+                <div style={{ display: "flex", gap: 6 }}>
+                  {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
+                    <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: .7 }} />
+                  ))}
+                </div>
+                <div style={{
+                  flex: 1, maxWidth: 400, margin: "0 auto",
+                  background: "var(--surface)", border: "1px solid var(--border)",
+                  borderRadius: 5, padding: "4px 12px",
+                  fontSize: 11.5, color: "var(--text-3)", fontFamily: "monospace",
+                  display: "flex", alignItems: "center", gap: 6,
+                }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--text-3)" strokeWidth="2" strokeLinecap="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  {sel?.url?.replace(/https?:\/\//, "")}
+                </div>
+              </div>
+
+              {/* Full page image */}
+              <img
+                src={lightbox.filepath}
+                alt="Full page capture"
+                style={{
+                  width: "100%", height: "auto", display: "block",
+                  border: "1px solid var(--border)",
+                  borderTop: "none",
+                  borderRadius: "0 0 8px 8px",
+                }}
+              />
+
+              {/* Bottom stamp */}
+              <div style={{ marginTop: 16, textAlign: "center", padding: "12px" }}>
+                <p className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>
+                  Captured by Snapstore · {fDate(lightbox.captured_at)} at {fTime(lightbox.captured_at)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <ScrollHint />
         </div>
       )}
 
