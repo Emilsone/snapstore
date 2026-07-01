@@ -10,10 +10,11 @@ const FEATURES = [
         icon: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15", title: "Full visual history", desc: " Every capture is saved with a precise timestamp and stored permanently. Browse your complete screenshot archive in a clean grid and see exactly how any page looked on any date", color: "#F0FDF4", stroke: "#166534"
     },
     { icon: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3", title: "Download any snapshot", desc: " Every screenshot is saved as a full-resolution PNG at 1440px wide. Download any capture instantly with one click, yours to keep, share, or archive forever.", color: "#FEF9EE", stroke: "#92400E" },
-    { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Password protection", desc: "Your dashboard is private and secure. Protected by a username and password that only you control, no public access and no unauthorized captures.", color: "#FDF2F8", stroke: "#9D174D" },
-    { icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z", title: "Fully self-hosted", desc: "Runs on your machine or any server. No subscription, no data leaving your control, ever.", color: "#F5F3FF", stroke: "#6D28D9" },
+    { icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Password protection", desc: "Your dashboard is private and secure. Protected by a username and password that only you control, no public access and no unauthorized captures.", color: "#FDF2F8", stroke: "#9D174D" }, {
+        icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Instant captures", desc: "Don't wait for a schedule. Hit Capture now and get a full-page screenshot of any webpage in seconds, on demand, any time you need it.", color: "#ECFDF5", stroke: "#065F46"
+    },
     {
-        icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Instant captures", desc: "Don't wait for a schedule. Hit Capture now and get a full-page screenshot of any webpage in seconds — on demand, any time you need it.", color: "#ECFDF5", stroke: "#065F46"
+        icon: "M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z", title: "Access from anywhere", desc: "Your archive lives in the cloud. Open your Snapstore dashboard to access from any browser, any device, when you need them.", color: "#EFF6FF", stroke: "#1D4ED8"
     },
 ];
 
