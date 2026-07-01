@@ -620,18 +620,18 @@ export default function App() {
                   padding: "40px 24px", textAlign: "center",
                 }}>
                   <div style={{
-                    width: 52, height: 52, borderRadius: 10,
-                    background: "#fff", border: "1px solid var(--stone-200)",
+                    width: 52, height: 52, borderRadius: 8,
+                    background: "#fff", border: "1px solid var(--ink-3)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "var(--stone-300)", marginBottom: 16,
-                    boxShadow: "0 1px 3px rgba(0,0,0,.06)",
+                    color: "var(--ink)", marginBottom: 16,
+                    boxShadow: "0 4px 4px rgba(0,0,0,.06)",
                   }}>
                     <Icon n="image" size={22} />
                   </div>
                   <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 20, color: "var(--ink)", marginBottom: 6 }}>
                     Select a URL to view its archive
                   </p>
-                  <p style={{ fontSize: 13.5, color: "var(--stone-400)", maxWidth: 300, lineHeight: 1.6 }}>
+                  <p style={{ fontSize: 13.5, color: "var(--ink)", maxWidth: 300, lineHeight: 1.6 }}>
                     Pick from the sidebar, or add a URL to start building your snapshot history.
                   </p>
                 </div>
