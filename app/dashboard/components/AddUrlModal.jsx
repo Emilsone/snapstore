@@ -113,7 +113,7 @@ export default function AddUrlModal({
             style={{
               padding: "8px 20px", borderRadius: 7,
               border: "none", background: "var(--bg)", color: "#fff",
-              fontSize: 15.5, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
+              fontSize: 28.5, fontWeight: 500, cursor: "pointer", fontFamily: "inherit",
               opacity: (formBusy || !form.name || !form.url || form.url === "https://") ? .5 : 1,
             }}
           >
