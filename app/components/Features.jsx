@@ -9,11 +9,11 @@ const FEATURES = [
     { icon: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z M4 22V15", title: "Full visual history", desc: " Every capture is saved with a precise timestamp and stored permanently. Browse your archive in a clean grid to see exactly how a page looked on any date.", color: "#F0FDF4", stroke: "#166534" },
     { icon: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3", title: "Download any snapshot", desc: " Captures are saved as high-resolution, 1440px wide PNGs. Get instant, one-click downloads ready to share, use, or archive whenever you need them.", color: "#FEF9EE", stroke: "#92400E" },
     {
-        icon: "M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z",
-        title: "Smart organization",
-        desc: "Group URLs by project, client, or environment. Use tags to keep your staging, production, and competitor archives neatly organized.",
-        color: "#FDF2F8",
-        stroke: "#9D174D"
+        icon: "M3 12h18M3 6h18M3 18h18",
+        title: "Unlimited URLs",
+        desc: "Track as many pages as you need with no caps or restrictions. Add clients, landing pages, staging environments, all in one place.",
+        color: "#FDF4FF",
+        stroke: "#7E22CE"
     },
     {
         icon: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Instant captures", desc: "Don't wait for a schedule. Hit Capture now and get a full-page screenshot of any webpage in seconds, on demand, any time you need it.", color: "#ECFDF5", stroke: "#065F46"
