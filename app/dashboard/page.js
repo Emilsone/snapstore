@@ -148,9 +148,9 @@ export default function App() {
   return (
     <>
       <style>{`
-        .db-sidebar-btn:hover { background: var(--stone-100) !important; }
+        .db-sidebar-btn:hover { background: var(--overlay) !important; }
         .db-nav-item { transition: background .12s, color .12s; }
-        .db-nav-item:hover { background: var(--stone-100) !important; color: var(--ink) !important; }
+        .db-nav-item:hover { background: var(--overlay) !important; color: var(--ink) !important; }
         .profile-dropdown { animation: fadeIn .15s ease; }
         @keyframes fadeIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
         @keyframes spin { to { transform:rotate(360deg); } }
@@ -185,6 +185,21 @@ export default function App() {
             backdrop-filter: blur(2px) !important;
             animation: fadeIn .2s ease !important;
           }
+          /* Mobile: Allow main to scroll horizontally if needed, prevent page-level overflow */
+          .mobile-menu-btn { display: flex !important; }
+          .url-count-badge { display: none !important; }
+          /* Archive hero responsive */
+          .archive-hero-inner { flex-direction: column !important; }
+          .archive-actions { flex-wrap: wrap !important; width: 100% !important; }
+          .archive-stat-grid { grid-template-columns: 1fr 1fr !important; }
+          .archive-grid { grid-template-columns: 1fr !important; }
+          .archive-padding { padding: 16px !important; }
+          .archive-hero-wrap { padding: 16px 16px 0 !important; }
+          /* Snapshot card footer */
+          .snap-footer { flex-wrap: wrap !important; }
+          /* Lightbox */
+          .lightbox-header { flex-wrap: wrap !important; gap: 8px !important; }
+          .lightbox-url { display: none !important; }
         }
       `}</style>
 
@@ -192,7 +207,7 @@ export default function App() {
       <div style={{
         display: "flex",
         height: "100vh",
-        width: "100vw",
+        width: "100%",
         overflow: "hidden",
         background: "var(--canvas, #F9F8F6)"
       }}>
@@ -223,7 +238,7 @@ export default function App() {
           />
 
           {/* ── MAIN PANEL ── */}
-          <main style={{ flex: 1, overflowY: "auto" }}>
+          <main style={{ flex: 1, overflowY: "auto", overflowX: "hidden", WebkitOverflowScrolling: "touch" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%" }}>
               {activeNav === "settings" && <Settings />}
               {activeNav === "support" && <Support />}

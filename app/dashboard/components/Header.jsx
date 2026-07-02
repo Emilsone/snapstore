@@ -24,7 +24,7 @@ export default function Header({
         zIndex: 40,
         background: "rgba(249,248,246,.85)",
         backdropFilter: "blur(12px)",
-        borderBottom: "1px solid var(--stone-200)",
+        borderBottom: "1px solid var(--rule)",
         height: 64,
         display: "flex",
         alignItems: "center",
@@ -48,8 +48,8 @@ export default function Header({
             className="mobile-menu-btn"
             style={{
               display: "none",
-              background: "var(--stone-100)",
-              border: "1px solid var(--stone-200)",
+              background: "var(--overlay)",
+              border: "1px solid var(--rule)",
               color: "var(--ink)",
               padding: "6px",
               cursor: "pointer",
@@ -101,9 +101,9 @@ export default function Header({
             style={{
               fontSize: 14,
               fontWeight: 500,
-              color: "var(--ink)",
+              color: "var(--ink-2)",
               background: "#fff",
-              border: "1px solid var(--ink-4)",
+              border: "1px solid var(--rule)",
               borderRadius: 99,
               padding: "4px 12px",
               whiteSpace: "nowrap",

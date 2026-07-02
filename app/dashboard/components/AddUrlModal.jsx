@@ -31,9 +31,9 @@ export default function AddUrlModal({
           animation: "fadeIn .2s ease",
         }}
       >
-        <div style={{ padding: "22px 24px 18px", borderBottom: "1px solid var(--stone-100)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ padding: "22px 24px 18px", borderBottom: "1px solid var(--overlay)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 19.5, color: "var(--ink)" }}>Add a URL</p>
-          <button onClick={() => setShowAdd(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--stone-400)", padding: 4, display: "flex" }}>
+          <button onClick={() => setShowAdd(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--ink-3)", padding: 4, display: "flex" }}>
             <Icon n="x" size={16} />
           </button>
         </div>
@@ -52,7 +52,7 @@ export default function AddUrlModal({
               onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
               autoFocus
               onFocus={e => e.target.style.borderColor = "#1d4ed8"}
-              onBlur={e => e.target.style.borderColor = "var(--stone-200)"}
+              onBlur={e => e.target.style.borderColor = "var(--rule)"}
             />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
@@ -76,7 +76,7 @@ export default function AddUrlModal({
                 e.target.style.borderColor = "#1d4ed8";
                 e.target.select();
               }}
-              onBlur={e => e.target.style.borderColor = "var(--stone-200)"}
+              onBlur={e => e.target.style.borderColor = "var(--rule)"}
             />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>

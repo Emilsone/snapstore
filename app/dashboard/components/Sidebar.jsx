@@ -30,7 +30,7 @@ export default function Sidebar({
       
       <aside className={`db-sidebar ${mobileMenuOpen ? 'open' : ''}`} style={{
         width: 260, flexShrink: 0,
-        borderRight: "1px solid var(--stone-200)",
+        borderRight: "1px solid var(--rule)",
         background: "#fff",
         display: "flex", flexDirection: "column",
         height: "100%",
@@ -41,7 +41,7 @@ export default function Sidebar({
           height: 64, flexShrink: 0,
           display: "flex", alignItems: "center", gap: 12,
           padding: "0 24px",
-          borderBottom: "1px solid var(--stone-100)",
+          borderBottom: "1px solid var(--overlay)",
         }}>
           <div style={{
             width: 32, height: 32, background: "var(--ink)",
@@ -62,7 +62,7 @@ export default function Sidebar({
         {activeNav === "archive" && (
           <>
             <p style={{
-              fontSize: 12.5, fontWeight: 600, color: "var(--stone-400)",
+              fontSize: 12.5, fontWeight: 600, color: "var(--ink-3)",
               letterSpacing: ".06em", textTransform: "uppercase",
               padding: "0 12px", marginBottom: 10,
             }}>
@@ -82,14 +82,14 @@ export default function Sidebar({
               <div style={{ padding: "32px 16px", textAlign: "center" }}>
                 <div style={{
                   width: 40, height: 40, borderRadius: 8,
-                  background: "#f5f5f4", border: "1px solid #e7e5e4",
+                  background: "var(--overlay)", border: "1px solid var(--rule)",
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  color: "#c4c2bc", margin: "0 auto 10px",
+                  color: "var(--ink-4)", margin: "0 auto 10px",
                 }}>
                   <Icon n="flag" size={16} />
                 </div>
-                <p style={{ fontSize: 14, color: "#78716c", fontWeight: 500, marginBottom: 3 }}>No URLs yet</p>
-                <p style={{ fontSize: 13.5, color: "#a8a29e" }}>Add one to start archiving</p>
+                <p style={{ fontSize: 14, color: "var(--ink-2)", fontWeight: 500, marginBottom: 3 }}>No URLs yet</p>
+                <p style={{ fontSize: 13.5, color: "var(--ink-3)" }}>Add one to start archiving</p>
               </div>
             ) : (
               <nav>
@@ -106,8 +106,8 @@ export default function Sidebar({
                         width: "100%", textAlign: "left",
                         padding: "10px 12px", borderRadius: 8,
                         border: "1px solid transparent",
-                        background: isActive ? "var(--stone-50)" : "transparent",
-                        borderColor: isActive ? "var(--stone-200)" : "transparent",
+                        background: isActive ? "var(--canvas)" : "transparent",
+                        borderColor: isActive ? "var(--rule)" : "transparent",
                         boxShadow: isActive ? "0 2px 6px rgba(0,0,0,0.02)" : "none",
                         cursor: "pointer",
                         display: "flex", alignItems: "center", gap: 10,
@@ -116,26 +116,26 @@ export default function Sidebar({
                         position: "relative",
                         overflow: "hidden",
                       }}
-                      onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background = "var(--stone-50)"; e.currentTarget.style.borderColor = "var(--stone-100)"; } }}
+                      onMouseEnter={e => { if (!isActive) { e.currentTarget.style.background = "var(--canvas)"; e.currentTarget.style.borderColor = "var(--overlay)"; } }}
                       onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "transparent"; } }}
                     >
                       {isActive && <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 3, background: "var(--ink)" }} />}
                       <span style={{
                         width: 6, height: 6, borderRadius: "50%", flexShrink: 0,
-                        background: entry.active ? "#22C55E" : "#d6d3d1",
+                        background: entry.active ? "#22C55E" : "var(--rule-mid)",
                         marginTop: 1,
                       }} />
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <p style={{
                           fontSize: 14.5, fontWeight: isActive ? 500 : 400,
-                          color: isActive ? "#1a1916" : "#57534e",
+                          color: isActive ? "var(--ink)" : "var(--ink-2)",
                           marginBottom: 2,
                           overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                         }}>
                           {entry.name}
                         </p>
                         <p style={{
-                          fontSize: 12.5, color: "#a8a29e",
+                          fontSize: 12.5, color: "var(--ink-3)",
                           fontFamily: "monospace",
                           overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                         }}>
@@ -144,8 +144,8 @@ export default function Sidebar({
                       </div>
                       {entry.screenshot_count > 0 && (
                         <span style={{
-                          fontSize: 12.5, color: "#a8a29e",
-                          background: "#f5f5f4", border: "1px solid #e7e5e4",
+                          fontSize: 12.5, color: "var(--ink-3)",
+                          background: "var(--overlay)", border: "1px solid var(--rule)",
                           borderRadius: 99, padding: "1px 7px", flexShrink: 0,
                         }}>
                           {entry.screenshot_count}
@@ -163,7 +163,7 @@ export default function Sidebar({
       {/* Bottom section — nav items + sign out, always at the bottom */}
       <div style={{ flexShrink: 0 }}>
         {/* Divider */}
-        <div style={{ borderTop: "1px solid var(--stone-100)", margin: "0 16px" }} />
+        <div style={{ borderTop: "1px solid var(--overlay)", margin: "0 16px" }} />
 
         {/* Nav items */}
         <div style={{ padding: "12px" }}>
@@ -178,16 +178,16 @@ export default function Sidebar({
                 width: "100%", display: "flex", alignItems: "center", gap: 12,
                 padding: "10px 14px", borderRadius: 8,
                 border: "none", cursor: "pointer",
-                background: activeNav === item.id ? "var(--stone-100)" : "transparent",
-                color: activeNav === item.id ? "var(--ink)" : "var(--stone-600)",
+                background: activeNav === item.id ? "var(--overlay)" : "transparent",
+                color: activeNav === item.id ? "var(--ink)" : "var(--ink-2)",
                 fontSize: 15, fontWeight: activeNav === item.id ? 500 : 400,
                 fontFamily: "inherit", textAlign: "left",
                 marginBottom: 4, transition: "all .15s",
               }}
-              onMouseEnter={e => { if (activeNav !== item.id) { e.currentTarget.style.background = "var(--stone-50)"; e.currentTarget.style.color = "var(--ink)"; } }}
-              onMouseLeave={e => { if (activeNav !== item.id) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--stone-600)"; } }}
+              onMouseEnter={e => { if (activeNav !== item.id) { e.currentTarget.style.background = "var(--canvas)"; e.currentTarget.style.color = "var(--ink)"; } }}
+              onMouseLeave={e => { if (activeNav !== item.id) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ink-2)"; } }}
             >
-              <Icon n={item.icon} size={15} style={{ color: activeNav === item.id ? "var(--ink)" : "var(--stone-400)" }} />
+              <Icon n={item.icon} size={15} style={{ color: activeNav === item.id ? "var(--ink)" : "var(--ink-3)" }} />
               {item.label}
             </button>
           ))}
@@ -195,7 +195,7 @@ export default function Sidebar({
 
         {/* Sign out */}
         <div style={{ padding: "0 12px 12px" }}>
-          <div style={{ borderTop: "1px solid var(--stone-100)", marginBottom: 12 }} />
+          <div style={{ borderTop: "1px solid var(--overlay)", marginBottom: 12 }} />
           <button
             onClick={logout}
             style={{

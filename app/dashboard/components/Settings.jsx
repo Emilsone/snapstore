@@ -2,9 +2,9 @@
 
 export default function Settings() {
   return (
-    <div style={{ padding: "40px 40px", maxWidth: 600 }}>
+    <div style={{ padding: "clamp(20px, 5vw, 40px)", maxWidth: 640 }}>
       <h1 style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 27.5, color: "var(--ink)", marginBottom: 6 }}>Settings</h1>
-      <p style={{ fontSize: 15.5, color: "var(--stone-400)", marginBottom: 36 }}>Manage your Snapstore preferences</p>
+      <p style={{ fontSize: 15.5, color: "var(--ink-2)", marginBottom: 36 }}>Manage your Snapstore preferences</p>
 
       {[
         { title: "Account", desc: "Your username and login credentials are set via environment variables on your server.", action: null },
@@ -14,10 +14,10 @@ export default function Settings() {
       ].map((s, i) => (
         <div key={i} style={{
           padding: "20px 0",
-          borderBottom: "1px solid var(--stone-200)",
+          borderBottom: "1px solid var(--rule)",
         }}>
-          <p style={{ fontSize: 16, fontWeight: 500, color: "var(--ink)", marginBottom: 5 }}>{s.title}</p>
-          <p style={{ fontSize: 15, color: "var(--ink)", lineHeight: 1.65 }}>{s.desc}</p>
+          <p style={{ fontSize: 16, fontWeight: 600, color: "var(--ink)", marginBottom: 6 }}>{s.title}</p>
+          <p style={{ fontSize: 15, color: "var(--ink-2)", lineHeight: 1.65 }}>{s.desc}</p>
         </div>
       ))}
     </div>

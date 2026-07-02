@@ -21,20 +21,21 @@ export default function Lightbox({
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="lightbox-header"
         style={{
-          height: 54, flexShrink: 0,
-          background: "#fff", borderBottom: "1px solid var(--stone-200)",
-          padding: "0 20px",
-          display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16,
+          height: "auto", minHeight: 54, flexShrink: 0,
+          background: "#fff", borderBottom: "1px solid var(--rule)",
+          padding: "10px 20px",
+          display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#22C55E", flexShrink: 0 }} />
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 15, fontWeight: 500, color: "var(--ink)", marginBottom: 1 }}>
+            <p style={{ fontSize: 15, fontWeight: 500, color: "var(--ink)", marginBottom: 1, whiteSpace: "nowrap" }}>
               {fDate(lightbox.captured_at)} at {fTime(lightbox.captured_at)}
             </p>
-            <p style={{ fontSize: 13, color: "var(--stone-400)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <p className="lightbox-url" style={{ fontSize: 13, color: "var(--ink-2)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "clamp(150px, 30vw, 400px)" }}>
               {sel?.url}
             </p>
           </div>
@@ -42,7 +43,7 @@ export default function Lightbox({
 
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
           {lightbox.file_size && (
-            <span style={{ fontSize: 13.5, color: "var(--stone-400)", background: "var(--stone-100)", border: "1px solid var(--stone-200)", borderRadius: 99, padding: "3px 10px" }}>
+            <span style={{ fontSize: 13.5, color: "var(--ink-3)", background: "var(--overlay)", border: "1px solid var(--rule)", borderRadius: 99, padding: "3px 10px" }}>
               {fBytes(lightbox.file_size)}
             </span>
           )}
@@ -53,12 +54,12 @@ export default function Lightbox({
             style={{
               display: "inline-flex", alignItems: "center", gap: 6,
               padding: "7px 14px", borderRadius: 7,
-              border: "1px solid var(--stone-200)", background: "#fff",
-              color: "var(--stone-600)", fontSize: 14.5, textDecoration: "none",
+              border: "1px solid var(--rule)", background: "#fff",
+              color: "var(--ink-2)", fontSize: 14.5, textDecoration: "none",
               transition: "all .12s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--stone-300)"; e.currentTarget.style.color = "var(--ink)"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--stone-600)"; }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--rule-mid)"; e.currentTarget.style.color = "var(--ink)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.color = "var(--ink-2)"; }}
           >
             <Icon n="download" size={13} />
             Download
@@ -68,11 +69,11 @@ export default function Lightbox({
             style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
               width: 34, height: 34, borderRadius: 7,
-              border: "1px solid var(--stone-200)", background: "#fff",
-              color: "var(--stone-400)", cursor: "pointer", transition: "all .12s",
+              border: "1px solid var(--rule)", background: "#fff",
+              color: "var(--ink-3)", cursor: "pointer", transition: "all .12s",
             }}
             onMouseEnter={e => { e.currentTarget.style.background = "#fef2f2"; e.currentTarget.style.borderColor = "#fca5a5"; e.currentTarget.style.color = "#dc2626"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--stone-400)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.color = "var(--ink-3)"; }}
           >
             <Icon n="x" size={14} />
           </button>

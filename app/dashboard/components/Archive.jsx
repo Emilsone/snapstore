@@ -17,41 +17,41 @@ export default function Archive({
   if (!sel) {
     return (
       <div style={{
-        height: "100%", display: "flex",
-        flexDirection: "column", alignItems: "center", justifyContent: "center",
-        padding: "40px 24px", textAlign: "center",
+      minHeight: "60vh", display: "flex",
+      flexDirection: "column", alignItems: "center", justifyContent: "center",
+      padding: "40px 24px", textAlign: "center",
+    }}>
+      <div style={{
+        width: 52, height: 52, borderRadius: 8,
+        background: "#fff", border: "1px solid var(--rule)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        color: "var(--ink-3)", marginBottom: 16,
+        boxShadow: "0 4px 4px rgba(0,0,0,.06)",
       }}>
-        <div style={{
-          width: 52, height: 52, borderRadius: 8,
-          background: "#fff", border: "1px solid var(--ink-3)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: "var(--ink)", marginBottom: 16,
-          boxShadow: "0 4px 4px rgba(0,0,0,.06)",
-        }}>
-          <Icon n="image" size={22} />
-        </div>
-        <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 21.5, color: "var(--ink)", marginBottom: 6 }}>
-          Select a URL to view its archive
-        </p>
-        <p style={{ fontSize: 15, color: "var(--ink)", maxWidth: 300, lineHeight: 1.6 }}>
-          Pick from the sidebar, or add a URL to start building your snapshot history.
-        </p>
+        <Icon n="image" size={22} />
       </div>
-    );
+      <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 21.5, color: "var(--ink)", marginBottom: 8 }}>
+        Select a URL to view its archive
+      </p>
+      <p style={{ fontSize: 15, color: "var(--ink-2)", maxWidth: 300, lineHeight: 1.6 }}>
+        Pick from the sidebar, or add a URL to start building your snapshot history.
+      </p>
+    </div>
+  );
   }
 
   return (
-    <div className="fade-in">
+    <div className="fade-in" style={{ minWidth: 0, overflowX: "hidden" }}>
       {/* URL detail hero */}
-      <div style={{ padding: "32px 32px 0" }}>
+      <div className="archive-hero-wrap" style={{ padding: "24px 24px 0" }}>
         <div style={{
           background: "#fff",
-          border: "1px solid var(--stone-200)",
+          border: "1px solid var(--rule)",
           borderRadius: 12,
           padding: "24px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.02)",
         }}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap", marginBottom: 20 }}>
+          <div className="archive-hero-inner" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap", marginBottom: 20 }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, flexWrap: "wrap" }}>
                 <h1 style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 28, color: "var(--ink)", lineHeight: 1.1, margin: 0 }}>
@@ -60,10 +60,10 @@ export default function Archive({
                 <span style={{
                   display: "inline-flex", alignItems: "center", gap: 6,
                   fontSize: 13, fontWeight: 500, padding: "3px 10px", borderRadius: 99,
-                  background: sel.active ? "#dcfce7" : "var(--stone-100)",
-                  color: sel.active ? "#15803d" : "var(--stone-500)",
+                  background: sel.active ? "#dcfce7" : "var(--overlay)",
+                  color: sel.active ? "#15803d" : "var(--ink-2)",
                 }}>
-                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: sel.active ? "#22C55E" : "var(--stone-400)" }} />
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: sel.active ? "#22C55E" : "var(--ink-3)" }} />
                   {sel.active ? "Active" : "Paused"}
                 </span>
                 <span style={{
@@ -90,18 +90,18 @@ export default function Archive({
               </a>
             </div>
 
-            <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
+            <div className="archive-actions" style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0, flexWrap: "wrap" }}>
               <button
                 onClick={() => toggleActive(sel)}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 6,
                   padding: "8px 16px", borderRadius: 8,
-                  border: "1px solid var(--stone-200)", background: "#DCFCE7",
+                  border: "1px solid var(--rule)", background: "#DCFCE7",
                   color: "#15803D", fontSize: 14.5, fontWeight: 500,
                   cursor: "pointer", fontFamily: "inherit", transition: "all .15s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--stone-300)"; e.currentTarget.style.color = "var(--ink)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--ink)"; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--rule-mid)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; }}
               >
                 <Icon n={sel.active ? "pause" : "play"} size={14} />
                 {sel.active ? "Pause" : "Resume"}
@@ -127,7 +127,7 @@ export default function Archive({
                 }
               </button>
 
-              <div style={{ width: 1, height: 24, background: "var(--stone-200)", margin: "0 4px" }} />
+              <div style={{ width: 1, height: 24, background: "var(--rule)", margin: "0 4px" }} />
 
               <button
                 onClick={() => deleteUrl(sel.id)}
@@ -135,11 +135,11 @@ export default function Archive({
                 style={{
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   width: 36, height: 36, borderRadius: 8,
-                  border: "1px solid var(--stone-200)", background: "#fff",
-                  color: "var(--stone-400)", cursor: "pointer", transition: "all .15s",
+                  border: "1px solid var(--rule)", background: "#fff",
+                  color: "var(--ink-3)", cursor: "pointer", transition: "all .15s",
                 }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#fef2f2"; e.currentTarget.style.borderColor = "#fca5a5"; e.currentTarget.style.color = "#dc2626"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--stone-400)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.color = "var(--ink-3)"; }}
                 title="Delete URL"
               >
                 <Icon n="trash" size={14} />
@@ -147,17 +147,17 @@ export default function Archive({
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12 }}>
+          <div className="archive-stat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
             {[
               ["Snapshots", sel.screenshot_count || "0"],
               ["Last captured", ago(sel.last_captured_at)],
               ["Added", ago(sel.created_at)],
             ].map(([label, val]) => (
               <div key={label} style={{
-                background: "var(--stone-50)", border: "1px solid var(--stone-100)",
+                background: "var(--canvas)", border: "1px solid var(--overlay)",
                 borderRadius: 8, padding: "12px 16px",
               }}>
-                <p style={{ fontSize: 13, color: "var(--stone-500)", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 4, fontWeight: 500 }}>
+                <p style={{ fontSize: 13, color: "var(--ink-2)", textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 4, fontWeight: 500 }}>
                   {label}
                 </p>
                 <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink)" }}>{val}</p>
@@ -168,11 +168,11 @@ export default function Archive({
       </div>
 
       {/* Screenshots grid */}
-      <div style={{ padding: "24px 28px" }}>
+      <div className="archive-padding" style={{ padding: "24px" }}>
         {shotsLoad ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14 }}>
+          <div className="archive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} style={{ background: "#fff", border: "1px solid var(--stone-200)", borderRadius: 10, overflow: "hidden" }}>
+              <div key={i} style={{ background: "#fff", border: "1px solid var(--rule)", borderRadius: 10, overflow: "hidden" }}>
                 <div className="skeleton" style={{ height: 164 }} />
                 <div style={{ padding: "11px 13px" }}>
                   <div className="skeleton" style={{ height: 11, width: "55%", marginBottom: 6 }} />
@@ -183,21 +183,21 @@ export default function Archive({
           </div>
         ) : shots.length === 0 ? (
           <div style={{
-            background: "#fff", border: "1px dashed var(--stone-200)",
+            background: "#fff", border: "1px dashed var(--rule)",
             borderRadius: 12, padding: "60px 24px", textAlign: "center",
           }}>
             <div style={{
               width: 46, height: 46, borderRadius: 10,
-              background: "var(--stone-100)", border: "1px solid var(--stone-200)",
+              background: "var(--overlay)", border: "1px solid var(--rule)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              color: "var(--stone-300)", margin: "0 auto 14px",
+              color: "var(--rule-mid)", margin: "0 auto 14px",
             }}>
               <Icon n="camera" size={20} />
             </div>
             <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 19.5, color: "var(--ink)", marginBottom: 6 }}>
               No snapshots yet
             </p>
-            <p style={{ fontSize: 15, color: "var(--stone-400)", marginBottom: 20 }}>
+            <p style={{ fontSize: 15, color: "var(--ink-3)", marginBottom: 20 }}>
               Take the first capture to start building this archive
             </p>
             <button
@@ -218,19 +218,19 @@ export default function Archive({
         ) : (
           <>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-              <p style={{ fontSize: 14.5, color: "var(--stone-400)" }}>
+              <p style={{ fontSize: 14.5, color: "var(--ink-3)" }}>
                 {shots.length} snapshot{shots.length !== 1 ? "s" : ""}
-                <span style={{ marginLeft: 6, color: "var(--stone-300)" }}>· newest first</span>
+                <span style={{ marginLeft: 6, color: "var(--rule-mid)" }}>· newest first</span>
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14 }}>
+          <div className="archive-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 16 }}>
               {shots.map((shot, i) => (
                 <article
                   key={shot.id}
                   className="snap-card"
                   style={{
-                    background: "#fff", border: "1px solid var(--stone-200)",
+                    background: "#fff", border: "1px solid var(--rule)",
                     borderRadius: 10, overflow: "hidden",
                     animationDelay: `${i * 0.035}s`,
                   }}
@@ -238,7 +238,7 @@ export default function Archive({
                   <div
                     style={{
                       aspectRatio: "16 / 10", overflow: "hidden",
-                      background: "var(--stone-100)", cursor: "zoom-in", position: "relative",
+                      background: "var(--overlay)", cursor: "zoom-in", position: "relative",
                     }}
                     onClick={() => setLightbox(shot)}
                   >
@@ -273,16 +273,16 @@ export default function Archive({
                     </div>
                   </div>
 
-                  <div style={{
-                    padding: "11px 13px",
-                    borderTop: "1px solid var(--stone-100)",
+                  <div className="snap-footer" style={{
+                    padding: "12px 14px",
+                    borderTop: "1px solid var(--overlay)",
                     display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8,
                   }}>
                     <div>
                       <p style={{ fontSize: 14.5, fontWeight: 500, color: "var(--ink)", marginBottom: 2 }}>
                         {fDate(shot.captured_at)}
                       </p>
-                      <p style={{ fontSize: 12.5, color: "var(--stone-400)", display: "flex", alignItems: "center", gap: 4 }}>
+                      <p style={{ fontSize: 12.5, color: "var(--ink-3)", display: "flex", alignItems: "center", gap: 4 }}>
                         <Icon n="clock" size={10} />
                         {fTime(shot.captured_at)}
                         {shot.file_size ? <> · {fBytes(shot.file_size)}</> : ""}
@@ -293,12 +293,12 @@ export default function Archive({
                         style={{
                           display: "inline-flex", alignItems: "center", justifyContent: "center",
                           width: 30, height: 30, borderRadius: 6,
-                          border: "1px solid var(--stone-200)", background: "#fff",
-                          color: "var(--stone-400)", textDecoration: "none",
+                          border: "1px solid var(--rule)", background: "#fff",
+                          color: "var(--ink-3)", textDecoration: "none",
                           transition: "all .12s",
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--stone-300)"; e.currentTarget.style.color = "var(--ink)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--stone-400)"; }}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--rule-mid)"; e.currentTarget.style.color = "var(--ink)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.color = "var(--ink-3)"; }}
                       >
                         <Icon n="download" size={12} />
                       </a>
@@ -307,12 +307,12 @@ export default function Archive({
                         style={{
                           display: "inline-flex", alignItems: "center", justifyContent: "center",
                           width: 30, height: 30, borderRadius: 6,
-                          border: "1px solid var(--stone-200)", background: "#fff",
-                          color: "var(--stone-400)", cursor: "pointer",
+                          border: "1px solid var(--rule)", background: "#fff",
+                          color: "var(--ink-3)", cursor: "pointer",
                           transition: "all .12s",
                         }}
                         onMouseEnter={e => { e.currentTarget.style.background = "#fef2f2"; e.currentTarget.style.borderColor = "#fca5a5"; e.currentTarget.style.color = "#dc2626"; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--stone-200)"; e.currentTarget.style.color = "var(--stone-400)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.color = "var(--ink-3)"; }}
                       >
                         <Icon n="trash" size={12} />
                       </button>
